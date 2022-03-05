@@ -22,6 +22,7 @@ import { createContext, useContext, useReducer, useMemo } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
 // Material Dashboard 2 React main context
 const MaterialUI = createContext();
@@ -30,7 +31,7 @@ const MaterialUI = createContext();
 MaterialUI.displayName = "MaterialUIContext";
 
 // Material Dashboard 2 React reducer
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case "MINI_SIDENAV": {
       return { ...state, miniSidenav: action.value };
@@ -63,25 +64,26 @@ function reducer(state, action) {
       return { ...state, darkMode: action.value };
     }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      return state;
     }
   }
 }
 
+export const initialState = {
+  miniSidenav: false,
+  transparentSidenav: false,
+  whiteSidenav: false,
+  sidenavColor: "info",
+  transparentNavbar: true,
+  fixedNavbar: true,
+  openConfigurator: false,
+  direction: "ltr",
+  layout: "dashboard",
+  darkMode: false,
+};
+
 // Material Dashboard 2 React context provider
 function MaterialUIControllerProvider({ children }) {
-  const initialState = {
-    miniSidenav: false,
-    transparentSidenav: false,
-    whiteSidenav: false,
-    sidenavColor: "info",
-    transparentNavbar: true,
-    fixedNavbar: true,
-    openConfigurator: false,
-    direction: "ltr",
-    layout: "dashboard",
-    darkMode: false,
-  };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
 
@@ -92,15 +94,17 @@ function MaterialUIControllerProvider({ children }) {
 
 // Material Dashboard 2 React custom hook for using context
 function useMaterialUIController() {
-  const context = useContext(MaterialUI);
+  // const context = useContext(MaterialUI);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.material);
 
-  if (!context) {
-    throw new Error(
-      "useMaterialUIController should be used inside the MaterialUIControllerProvider."
-    );
-  }
+  // if (!context) {
+  //   throw new Error(
+  //     "useMaterialUIController should be used inside the MaterialUIControllerProvider."
+  //   );
+  // }
 
-  return context;
+  return [state, dispatch];
 }
 
 // Typechecking props for the MaterialUIControllerProvider
@@ -121,7 +125,7 @@ const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 
 export {
-  MaterialUIControllerProvider,
+  // MaterialUIControllerProvider,
   useMaterialUIController,
   setMiniSidenav,
   setTransparentSidenav,

@@ -45,7 +45,7 @@ interface TagsViewerProps {
 const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setScale((event.target as HTMLInputElement).value);
-    console.log(`change tagging scale to $scale$`);
+    // console.log(`change tagging scale to $scale$`);
   };
 
   return (
@@ -76,7 +76,7 @@ const TagsViewer: React.FC<TagsViewerProps> = (props) => {
   if (props.scale === "whole dialogue") {
     // only need DTags
     const tags: Array<string> = props.DTags.split(";");
-    console.log(`split DTags: ${tags}`);
+    // console.log(`split DTags: ${tags}`);
 
     return (
       <Stack direction="row" spacing={1}>
@@ -87,10 +87,10 @@ const TagsViewer: React.FC<TagsViewerProps> = (props) => {
     );
   } else {
     const cTags: Array<string> = props.CTags.split(";");
-    console.log(`split cTags: ${cTags}`);
+    // console.log(`split cTags: ${cTags}`);
 
     const hTags: Array<string> = props.HTags.split(";");
-    console.log(`split HTags: ${hTags}`);
+    // console.log(`split HTags: ${hTags}`);
 
     return (
       <>
@@ -128,12 +128,12 @@ export const MeasureModal = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setDescription(event.target.value);
-    console.log(`Change Description to ${description}`);
+    // console.log(`Change Description to ${description}`);
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
-    console.log(`Change title to ${title}`);
+    // console.log(`Change title to ${title}`);
   };
 
   // tags
@@ -144,17 +144,17 @@ export const MeasureModal = () => {
   const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.id === "whole") {
       setDTags(event.target.value);
-      console.log(`set dialogue tags as ${event.target.value}`);
+      // console.log(`set dialogue tags as ${event.target.value}`);
     }
 
     if (event.target.id === "customer") {
       setCTags(event.target.value);
-      console.log(`set customer tags as ${event.target.value}`);
+      // console.log(`set customer tags as ${event.target.value}`);
     }
 
     if (event.target.id === "helpdesk") {
       setHTags(event.target.value);
-      console.log(`set helpdesk tags as ${event.target.value}`);
+      // console.log(`set helpdesk tags as ${event.target.value}`);
     }
   };
 

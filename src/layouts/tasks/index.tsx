@@ -34,99 +34,10 @@ import { AppState } from "store/Appstate";
 import React from "react";
 import { Measure } from "store/MeasureListReducer";
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { MeasureModal } from "./EditMissionModal";
+import { MeasureModal } from "./MeasureModal";
 
 const MDBox = MDBox_ as FC<PropsWithChildren<any>>;
 const MDTypography = MDTypography_ as FC<PropsWithChildren<any>>;
-
-
-
-// const MeasureListTable: FC<any> = () => {
-
-
-//   const columns = [
-//     { Header: "title", accessor: "title", width: "45%", align: "left" },
-//     { Header: "description", accessor: "description", align: "left" },
-//     { Header: "type", accessor: "type", align: "center" },
-//     { Header: "tags", accessor: "tags", align: "center" },
-//     { Header: "action", accessor: "action", align: "center" },
-//   ];
-
-//   const measure_rows: Array<Measure> = [];
-
-//   const measureListState = useSelector((state: AppState) => state.measureList);
-
-//   useEffect(() => {
-
-//     if (measureListState.measures) {
-//       const measureList = measureListState.measures;
-
-//       const measure_rows = measureList.map((measure) => {
-//         return (
-//           {
-//             title: (
-//               <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-//                 {measure.title}
-//               </MDTypography>
-//             ),
-//             description: (
-//               <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-//                 {measure.description}
-//               </MDTypography>
-//             ),
-//             type: (
-//               <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-//                 {measure.type}
-//               </MDTypography>
-//             ),
-//             tags: (
-//               <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-//                 {measure.tags}
-//               </MDTypography>
-//             ),
-//             action: (
-//               <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-//                 "Delete"
-//               </MDTypography>
-//             )
-//           }
-//         )
-//       });
-
-//     };
-
-//   }, [measureListState]);
-
-//   return (
-//     <Grid item xs={6}>
-//       <Card>
-//         <MDBox
-//           mx={2}
-//           mt={-3}
-//           py={3}
-//           px={2}
-//           variant="gradient"
-//           bgColor="info"
-//           borderRadius="lg"
-//           coloredShadow="info"
-//         >
-//           <MDTypography variant="h6" color="white">
-//             Measures
-//           </MDTypography>
-//         </MDBox>
-//         <MDBox pt={3}>
-//           <DataTable
-//             table={{ columns, measure_rows }}
-//             isSorted={false}
-//             entriesPerPage={false}
-//             showTotalEntries={false}
-//             noEndBorder
-//           />
-//         </MDBox>
-//       </Card>
-//     </Grid>
-//   )
-// };
 
 function createData(
   name: string,
@@ -146,42 +57,60 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function BasicTable() {
+
+const useMeasureList = () => {
+  
+  const [measureList, setMeasureList] = useState<Array<Measure>>([]);
+
+  const measureListState = useSelector((state: AppState) => state.measureList);
+
+  useEffect( () => {
+    
+    setMeasureList(measureListState.measures);
+
+  }, [measureListState]);
+
+  return measureList;
+
+}
+
+export const MeasureTable = () => {
+
+  const measureList = useMeasureList();
+
   return (
     <Grid item xs={6}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead style={{ display: "table-header-group" }}>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right">Scale</TableCell>
+              <TableCell align="right">Tags</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {measureList.map(({ title, description, type, tags}) => (
               <TableRow
-                key={row.name}
+                key={title}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {title}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{description}</TableCell>
+                <TableCell align="right">{type}</TableCell>
+                <TableCell align="right">{tags}</TableCell>
+                <TableCell align="right">delete</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer></Grid>
-  );
+  )
 }
-
-
 
 
 export const Dashboard: FC<any> = () => {
@@ -192,7 +121,7 @@ export const Dashboard: FC<any> = () => {
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <BasicTable></BasicTable>
+            <MeasureTable></MeasureTable>
             <MeasureModal></MeasureModal>
           </Grid>
         </Grid>

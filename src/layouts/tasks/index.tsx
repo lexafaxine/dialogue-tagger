@@ -1,117 +1,158 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
+import MDBox_ from "components/MDBox";
+import MDTypography_ from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
-import DataTable from "examples/Tables/DataTable";
 
 // Data
-import { FC, PropsWithChildren, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "store/Appstate";
 import React from "react";
-import { Measure } from "store/MeasureListReducer";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { MeasureModal } from "./MeasureModal";
+import { Measure, MEASURELIST_TYPE, WholeMeasure } from "store/MeasureListReducer";
+import { Button, ModalTypeMap, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { MasterModal, MasterModalProps } from "./MasterModal";
 
+const MDBox = MDBox_ as FC<PropsWithChildren<any>>;
+const MDTypography = MDTypography_ as FC<PropsWithChildren<any>>;
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
+interface MeasureViewerProps {
+  measureList: Array<Measure>;
+  setMeasureList: (newData: Measure) => void;
+  setDisplay: (newData: MasterModalProps | null) => void;
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+interface MeasureTableProps {
+  measureList: Array<Measure>;
+  setDisplay: (newData: MasterModalProps | null) => void;
+}
 
-
-const useMeasureList = () => {
-  
-  const [measureList, setMeasureList] = useState<Array<Measure>>([]);
+export const useMeasureList = () => {
 
   const measureListState = useSelector((state: AppState) => state.measureList);
+  const dispatch = useDispatch();
 
-  useEffect( () => {
-    
-    setMeasureList(measureListState.measures);
+  const setMeasureList = useCallback((measure: Measure) => {
+    const measureList = measureListState.measures;
 
-  }, [measureListState]);
+    dispatch({
+      type: MEASURELIST_TYPE,
+      payload: {
+        measures: [...measureList, measure]
+      }
+    });
+  }, [measureListState,]);
 
-  return measureList;
+  return {
+    measureListState,
+    setMeasureList,
+  }
 
 }
 
-export const MeasureTable = () => {
+const MeasureTable = (props: MeasureTableProps) => {
 
-  const measureList = useMeasureList();
+  const measureList = props.measureList;
+
+  const onClickBuilder = (rowId: number) => {
+    return () => {
+      const initialData = measureList[rowId];
+
+      props.setDisplay(
+        {
+          type: "measure",
+          initialData: initialData,
+          onAdd: () => {},
+          isAdd: false,
+          onClose: () => {
+            props.setDisplay(null);
+          }
+        }
+      )
+    }
+  }
+
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead style={{ display: "table-header-group" }}>
+          <TableRow>
+            <TableCell>Title</TableCell>
+            <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Scale</TableCell>
+            <TableCell align="right">Tags</TableCell>
+            <TableCell align="right">Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {measureList.map(({ title, description, type, tags }, i) => (
+            <TableRow
+              key={i}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              onClick={onClickBuilder(i)}>
+              <TableCell component="th" scope="row">
+                {title}
+              </TableCell>
+              <TableCell align="right">{description}</TableCell>
+              <TableCell align="right">{type}</TableCell>
+              {
+                // to do a tags 
+              }
+              <TableCell align="right">{tags}</TableCell>
+              <TableCell align="right">delete</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
+
+const MeasureViewer = (props: MeasureViewerProps) => {
+
+  const measureList = props.measureList;
 
   return (
     <Grid item xs={6}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead style={{ display: "table-header-group" }}>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell align="right">Description</TableCell>
-              <TableCell align="right">Scale</TableCell>
-              <TableCell align="right">Tags</TableCell>
-              <TableCell align="right">Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {measureList.map(({ title, description, type, tags}) => (
-              <TableRow
-                key={title}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {title}
-                </TableCell>
-                <TableCell align="right">{description}</TableCell>
-                <TableCell align="right">{type}</TableCell>
-                <TableCell align="right">{tags}</TableCell>
-                <TableCell align="right">delete</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer></Grid>
+      <MeasureTable measureList={measureList} setDisplay={props.setDisplay}></MeasureTable>
+      <Button onClick={() => {
+        const initialData: WholeMeasure = {
+          title: "",
+          description: "",
+          type: "whole",
+          tags: []
+        };
+
+        props.setDisplay(
+          {
+            type: "measure",
+            initialData: initialData,
+            onAdd: props.setMeasureList,
+            isAdd: true,
+            onClose: () => {
+              props.setDisplay(null);
+            }
+          }
+        )
+
+      }}>Add Measure</Button>
+    </Grid>
   )
 }
 
 
 export const Dashboard: FC<any> = () => {
+
+  const { measureListState, setMeasureList } = useMeasureList();
+
+  const measureList = measureListState.measures;
+
+  const [display, setDisplay] = useState<null | MasterModalProps>(null);
 
   return (
     <DashboardLayout>
@@ -119,8 +160,10 @@ export const Dashboard: FC<any> = () => {
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <MeasureTable></MeasureTable>
-            <MeasureModal></MeasureModal>
+            <MeasureViewer measureList={measureList} setMeasureList={setMeasureList} setDisplay={setDisplay}></MeasureViewer>
+            {
+              (display !== null) && <MasterModal {...display}></MasterModal>
+            }
           </Grid>
         </Grid>
       </MDBox>

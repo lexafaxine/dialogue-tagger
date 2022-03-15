@@ -2,14 +2,14 @@
 export const MEASURELIST_TYPE = "MEASURE_LIST";
 
 
-type Tags = string[];
+export type Tags = string[];
 
 interface BaseMeasure {
   title: string;
   description: string;
 }
 
-interface WholeMeasure extends BaseMeasure {
+export interface WholeMeasure extends BaseMeasure {
   type: "whole";
   tags: Tags;
 }

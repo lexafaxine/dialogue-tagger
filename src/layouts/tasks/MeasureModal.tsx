@@ -1,19 +1,19 @@
 import * as React from 'react';
 
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import MDInput from "components/MDInput";
 import { Chip, FormControl, FormControlLabel, FormLabel, Input, Radio, RadioGroup, Stack, StepIconClasskey, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from 'store/Appstate';
 import { MissionDefinition, MissionState, MISSIONS_TYPE } from 'store/MissionsReducer';
 import { Description } from '@mui/icons-material';
 import { boolean } from 'yup';
-import { Measure } from 'store/MeasureListReducer';
+import { Measure, Tags } from 'store/MeasureListReducer';
+import { useMeasureList } from '.';
+import { MeasureModalProps } from './MasterModal';
+import { string } from 'prop-types';
+import { TagsViewer } from './TagsViewer';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -32,20 +32,13 @@ const style = {
 
 interface RadioMeasureScaleProps {
   scale: string;
-  setScale: (scale: string) => void;
-}
-
-interface TagsViewerProps {
-  scale: string;
-  DTags: string;
-  CTags: string;
-  HTags: string;
+  setScale: (scale: "turnbyturn" | "whole") => void;
 }
 
 const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.setScale((event.target as HTMLInputElement).value);
-    // console.log(`change tagging scale to $scale$`);
+    const newScale = ((event.target as HTMLInputElement).value === "whole") ? "whole" : "turnbyturn"
+    props.setScale(newScale);
   };
 
   return (
@@ -58,12 +51,12 @@ const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
         onChange={handleChange}
       >
         <FormControlLabel
-          value="whole dialogue"
+          value="whole"
           control={<Radio />}
           label="whole dialogue"
         />
         <FormControlLabel
-          value="tunr-by-turn"
+          value="turnbyturn"
           control={<Radio />}
           label="tunr-by-turn"
         />
@@ -72,57 +65,14 @@ const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
   );
 };
 
-const TagsViewer: React.FC<TagsViewerProps> = (props) => {
-  if (props.scale === "whole dialogue") {
-    // only need DTags
-    const tags: Array<string> = props.DTags.split(";");
-    // console.log(`split DTags: ${tags}`);
-
-    return (
-      <Stack direction="row" spacing={1}>
-        {tags.map((tag) => {
-          return <Chip label={tag} variant="outlined"></Chip>;
-        })}
-      </Stack>
-    );
-  } else {
-    const cTags: Array<string> = props.CTags.split(";");
-    // console.log(`split cTags: ${cTags}`);
-
-    const hTags: Array<string> = props.HTags.split(";");
-    // console.log(`split HTags: ${hTags}`);
-
-    return (
-      <>
-        <Typography>customer tags</Typography>
-        <Stack direction="row" spacing={1}>
-          {cTags.map((tag) => {
-            return <Chip label={tag} variant="outlined"></Chip>;
-          })}
-        </Stack>
-        <Typography>helpdesk tags</Typography>
-        <Stack direction="row" spacing={1}>
-          {hTags.map((tag) => {
-            return <Chip label={tag} variant="outlined"></Chip>;
-          })}
-        </Stack>
-      </>
-    );
-  }
-};
-
-export const MeasureModal = () => {
-  // modal controller
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export const MeasureModal = (props: MeasureModalProps) => {
 
   // dialogue tagging scale
-  const [scale, setScale] = React.useState("whole dialogue");
+  const [scale, setScale] = React.useState(props.initialData.type);
 
   // base information
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [title, setTitle] = React.useState(props.initialData.title);
+  const [description, setDescription] = React.useState(props.initialData.description);
 
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -144,28 +94,49 @@ export const MeasureModal = () => {
   const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.id === "whole") {
       setDTags(event.target.value);
-      // console.log(`set dialogue tags as ${event.target.value}`);
     }
 
     if (event.target.id === "customer") {
       setCTags(event.target.value);
-      // console.log(`set customer tags as ${event.target.value}`);
     }
 
     if (event.target.id === "helpdesk") {
       setHTags(event.target.value);
-      // console.log(`set helpdesk tags as ${event.target.value}`);
     }
   };
 
   // Add Button
 
+  const onClickAdd = () => {
+    // To do a VERIFY
+
+    let measure: Measure;
+    if (scale === "whole") {
+      measure = {
+        title: title,
+        description: description,
+        type: "whole",
+        tags: DTags.split(";")
+      }
+    } else {
+      measure = {
+        title: title,
+        description: description,
+        type: "turnbyturn",
+        tags: [
+          CTags.split(";"),
+          HTags.split(";")
+        ]
+      }
+    }
+
+    props.onAdd(measure);
+  }
+
   return (
     <div>
-      <Button onClick={handleOpen}>Add Measure</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={true}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -182,8 +153,9 @@ export const MeasureModal = () => {
               label="Title"
               color="secondary"
               size="small"
-              value={title}
+              defaultValue={title}
               onChange={handleTitleChange}
+              disabled={!props.isAdd}
               focused
             />
             <br />
@@ -192,8 +164,9 @@ export const MeasureModal = () => {
               color="secondary"
               multiline
               rows={4}
-              value={description}
+              defaultValue={description}
               onChange={handleDescriptionChange}
+              disabled={!props.isAdd}
               focused
             />
             <br />
@@ -202,52 +175,68 @@ export const MeasureModal = () => {
               setScale={setScale}
             ></RadioMeasureScale>
             <br />
-            {scale === "whole dialogue" ? (
-              <TextField
-                label="Dialogue Tag"
-                color="secondary"
-                size="small"
-                focused
-                placeholder="Enter your tags, split by ','"
-                id="whole"
-                onChange={handleTagsChange}
-              ></TextField>
-            ) : (
-              <>
-                <TextField
-                  label="Customer Tags"
-                  color="secondary"
-                  size="small"
-                  focused
-                  placeholder="Enter your customer tags, split by ','"
-                  id="customer"
-                  onChange={handleTagsChange}
-                ></TextField>
-                <br />
-                <TextField
-                  label="Helpdesk Tags"
-                  color="secondary"
-                  size="small"
-                  focused
-                  placeholder="Enter your helpdesk tags, split by ','"
-                  id="helpdesk"
-                  onChange={handleTagsChange}
-                ></TextField>
-              </>
-            )}
+            {
+              props.isAdd === false ? (<></>) : (
+                scale === "whole" ? (
+                  <TextField
+                    label="Dialogue Tag"
+                    color="secondary"
+                    size="small"
+                    focused
+                    placeholder="Enter your tags, split by ','"
+                    id="whole"
+                    onChange={handleTagsChange}
+                  ></TextField>
+                ) : (
+                  <>
+                    <TextField
+                      label="Customer Tags"
+                      color="secondary"
+                      size="small"
+                      focused
+                      placeholder="Enter your customer tags, split by ','"
+                      id="customer"
+                      onChange={handleTagsChange}
+                    ></TextField>
+                    <br />
+                    <TextField
+                      label="Helpdesk Tags"
+                      color="secondary"
+                      size="small"
+                      focused
+                      placeholder="Enter your helpdesk tags, split by ','"
+                      id="helpdesk"
+                      onChange={handleTagsChange}
+                    ></TextField>
+                  </>
+                )
+              )
+            }
             <br />
-            <TagsViewer
-              scale={scale}
-              DTags={DTags}
-              CTags={CTags}
-              HTags={HTags}
-            ></TagsViewer>
+            {scale === "turnbyturn" ?
+              <TagsViewer scale="turnbyturn" DTags={DTags} CTags={CTags} HTags={HTags} isAdd={props.isAdd} tags={props.initialData.tags as Array<Tags>}></TagsViewer> :
+              <TagsViewer scale="whole" DTags={DTags} CTags={CTags} HTags={HTags} isAdd={props.isAdd} tags={props.initialData.tags as Tags}></TagsViewer>}
           </Box>
           <br />
           <Box sx={{ pl: 1 }}>
-            <Button variant="contained" size="small">
-              Add
-            </Button>
+            {
+              (props.isAdd === true) ? (
+                <Stack direction="row" spacing={1}>
+                  <Button variant="contained" size="small" onClick={onClickAdd}>
+                    Add
+                  </Button>
+                  <Button variant="contained" size="small" onClick={props.onClose}>
+                    Close
+                  </Button>
+                </Stack>
+
+              ) : (
+                <Button variant="contained" size="small" onClick={props.onClose}>
+                  Close
+                </Button>
+              )
+            }
+
           </Box>
         </Box>
       </Modal>

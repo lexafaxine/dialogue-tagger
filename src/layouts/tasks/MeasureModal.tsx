@@ -33,6 +33,7 @@ const style = {
 interface RadioMeasureScaleProps {
   scale: string;
   setScale: (scale: "turnbyturn" | "whole") => void;
+  isAdd: boolean;
 }
 
 const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
@@ -40,29 +41,55 @@ const RadioMeasureScale: React.FC<RadioMeasureScaleProps> = (props) => {
     const newScale = ((event.target as HTMLInputElement).value === "whole") ? "whole" : "turnbyturn"
     props.setScale(newScale);
   };
-
-  return (
-    <FormControl>
-      <FormLabel id="tagging-scale-group">Measure Scale</FormLabel>
-      <RadioGroup
-        aria-labelledby="tagging-scale-group"
-        name="controlled-radio-buttons-group"
-        value={props.scale}
-        onChange={handleChange}
-      >
-        <FormControlLabel
-          value="whole"
-          control={<Radio />}
-          label="whole dialogue"
-        />
-        <FormControlLabel
-          value="turnbyturn"
-          control={<Radio />}
-          label="tunr-by-turn"
-        />
-      </RadioGroup>
-    </FormControl>
-  );
+  if (props.isAdd === true) {
+    return (
+      <FormControl>
+        <FormLabel id="tagging-scale-group">Measure Scale</FormLabel>
+        <RadioGroup
+          aria-labelledby="tagging-scale-group"
+          name="controlled-radio-buttons-group"
+          value={props.scale}
+          onChange={handleChange}
+        >
+          <FormControlLabel
+            value="whole"
+            control={<Radio />}
+            label="whole dialogue"
+          />
+          <FormControlLabel
+            value="turnbyturn"
+            control={<Radio />}
+            label="tunr-by-turn"
+          />
+        </RadioGroup>
+      </FormControl>
+    );
+  } else {
+    return (
+      <FormControl>
+        <FormLabel id="showScale">Measure Scale</FormLabel>
+        <RadioGroup
+          row
+          aria-labelledby="showScale"
+          name="showScale"
+          value={props.scale}
+        >
+          <FormControlLabel
+            value="whole"
+            disabled = {props.scale === "turnbyturn"}
+            control={<Radio />}
+            label="whole dialogue"
+          />
+          <FormControlLabel
+            value="turnbyturn"
+            disabled = {props.scale === "scale"}
+            control={<Radio />}
+            label="other"
+          />
+        </RadioGroup>
+      </FormControl>
+    );
+  }
 };
 
 export const MeasureModal = (props: MeasureModalProps) => {
@@ -172,7 +199,7 @@ export const MeasureModal = (props: MeasureModalProps) => {
             <br />
             <RadioMeasureScale
               scale={scale}
-              setScale={setScale}
+              setScale={setScale} isAdd={props.isAdd}
             ></RadioMeasureScale>
             <br />
             {

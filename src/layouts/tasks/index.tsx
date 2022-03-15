@@ -132,7 +132,11 @@ const MeasureViewer = (props: MeasureViewerProps) => {
           {
             type: "measure",
             initialData: initialData,
-            onAdd: props.setMeasureList,
+            // onAdd: props.setMeasureList,
+            onAdd: (newMeausure: Measure) => {
+              props.setMeasureList(newMeausure);
+              props.setDisplay(null);
+            },
             isAdd: true,
             onClose: () => {
               props.setDisplay(null);

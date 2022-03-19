@@ -13,7 +13,7 @@ import { Measure, Tags } from 'store/MeasureListReducer';
 import { useMeasureList } from '.';
 import { MeasureModalProps } from './MasterModal';
 import { string } from 'prop-types';
-import { TagsViewer } from './TagsViewer';
+import { TagsController } from './TagsController';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -114,23 +114,8 @@ export const MeasureModal = (props: MeasureModalProps) => {
   };
 
   // tags
-  const [DTags, setDTags] = React.useState("");
-  const [CTags, setCTags] = React.useState("");
-  const [HTags, setHTags] = React.useState("");
-
-  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.id === "whole") {
-      setDTags(event.target.value);
-    }
-
-    if (event.target.id === "customer") {
-      setCTags(event.target.value);
-    }
-
-    if (event.target.id === "helpdesk") {
-      setHTags(event.target.value);
-    }
-  };
+  const [Dtags, setDtags] = React.useState<Tags>([]);
+  const [Ttags, setTtags] = React.useState<Array<Tags>>([]);
 
   // Add Button
 
@@ -143,17 +128,14 @@ export const MeasureModal = (props: MeasureModalProps) => {
         title: title,
         description: description,
         type: "whole",
-        tags: DTags.split(";")
+        tags: Dtags
       }
     } else {
       measure = {
         title: title,
         description: description,
         type: "turnbyturn",
-        tags: [
-          CTags.split(";"),
-          HTags.split(";")
-        ]
+        tags: Ttags
       }
     }
 
@@ -203,46 +185,12 @@ export const MeasureModal = (props: MeasureModalProps) => {
             ></RadioMeasureScale>
             <br />
             {
-              props.isAdd === false ? (<></>) : (
-                scale === "whole" ? (
-                  <TextField
-                    label="Dialogue Tag"
-                    color="secondary"
-                    size="small"
-                    focused
-                    placeholder="Enter your tags, split by ','"
-                    id="whole"
-                    onChange={handleTagsChange}
-                  ></TextField>
-                ) : (
-                  <>
-                    <TextField
-                      label="Customer Tags"
-                      color="secondary"
-                      size="small"
-                      focused
-                      placeholder="Enter your customer tags, split by ','"
-                      id="customer"
-                      onChange={handleTagsChange}
-                    ></TextField>
-                    <br />
-                    <TextField
-                      label="Helpdesk Tags"
-                      color="secondary"
-                      size="small"
-                      focused
-                      placeholder="Enter your helpdesk tags, split by ','"
-                      id="helpdesk"
-                      onChange={handleTagsChange}
-                    ></TextField>
-                  </>
-                )
+              (scale === "whole")? (
+                <TagsController scale={scale} tags={Dtags} setTags={setDtags} isAdd={props.isAdd}></TagsController>
+              ) : (
+                <TagsController scale={scale} tags={Ttags} setTags={setTtags} isAdd={props.isAdd}></TagsController>
               )
             }
-            <br />
-            {scale === "turnbyturn" ?
-              <TagsViewer scale="turnbyturn" DTags={DTags} CTags={CTags} HTags={HTags} isAdd={props.isAdd} tags={props.initialData.tags as Array<Tags>}></TagsViewer> :
-              <TagsViewer scale="whole" DTags={DTags} CTags={CTags} HTags={HTags} isAdd={props.isAdd} tags={props.initialData.tags as Tags}></TagsViewer>}
           </Box>
           <br />
           <Box sx={{ pl: 1 }}>

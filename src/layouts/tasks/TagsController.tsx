@@ -1,165 +1,84 @@
-import Typography from '@mui/material/Typography';
-import { Box, Button, Chip, FormControl, FormControlLabel, FormLabel, Grid, Input, Radio, RadioGroup, Stack, StepIconClasskey, TextField } from '@mui/material';
-import React from 'react';
-import { Tags } from 'store/MeasureListReducer';
+import Typography from "@mui/material/Typography";
+import { Chip, Stack } from "@mui/material";
+import React from "react";
+import { TagGroup } from "store/measureSlice";
 
+type TagGroupControllerScale = "whole" | "turnbyturn";
 
-type TagsControllerScale = "whole" | "turnbyturn";
-
-
-interface BaseTagsControllerProps {
-  scale: TagsControllerScale;
+interface BaseTagGroupControllerProps {
+  scale: TagGroupControllerScale;
   isAdd: boolean;
 }
 
-interface DTagsControllerProps extends BaseTagsControllerProps {
+interface DTagGroupControllerProps extends BaseTagGroupControllerProps {
   scale: "whole";
-  tags: Tags;
-  setTags: (tags: Tags) => void;
+  TagGroup: TagGroup;
+  setTagGroup: (TagGroup: TagGroup) => void;
 }
 
-interface TTagsControllerProps extends BaseTagsControllerProps {
+interface TTagGroupControllerProps extends BaseTagGroupControllerProps {
   scale: "turnbyturn";
-  tags: Array<Tags>;
-  setTags: (tags: Array<Tags>) => void;
+  TagGroup: Array<TagGroup>;
+  setTagGroup: (TagGroup: Array<TagGroup>) => void;
 }
 
-
-{/* <Stack direction="row" spacing={1}>
-{tags.map((tag, i) => {
-  return <Chip label={tag} variant="outlined" key={i}></Chip>;
-})}
-</Stack> */}
-
-interface TagsAdderProps {
-  // tags: Map<string, string>;
-  onChange: (tagMap: Map<string, string>) => void;
+interface TagGroupViewerProps {
+  TagGroup: TagGroup;
 }
 
-
-const randomString = () => (Math.random() + 1).toString(36).substring(7);
-
-const TagsAdder = (props: TagsAdderProps) => {
-  const [tags, setTags] = React.useState<Map<string, string>>(new Map());
-
-  const onClickAdd = () => {
-    setTags(new Map([...Array.from(tags), [randomString(), ""]]));
-  };
-
-  const handleChange = (key: string, value: string) => {
-    const newMap = new Map(Array.from(tags));
-    newMap.set(key, value);
-    setTags(newMap);
-    props.onChange(newMap)
-  };
-
+const TagGroupViewer = (props: TagGroupViewerProps) => {
   return (
-    <Box sx={{ width: "100%" }}>
-      <Button onClick={onClickAdd}>Add Tags</Button>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {Array.from(tags).map(([key, value]) => {
-          return (
-            <>
-              <Grid item xs={6} pb="1111">
-                <TextField
-                  label=""
-                  color="secondary"
-                  size="small"
-                  key={key}
-                  defaultValue={value}
-                  onChange={(e) => handleChange(key, e.target.value)}
-                  id={key}
-                  focused
-                />
-                <Button
-                  onClick={() => {
-                    setTags(
-                      new Map(Array.from(tags).filter(([k, _]) => k !== key))
-                    );
-                  }}
-                >
-                  delete
-                </Button>
-              </Grid>
-            </>
-          );
-        })}
-      </Grid>
-    </Box>
+    <Stack direction="row" spacing={1}>
+      {props.TagGroup.map((tag, i) => {
+        return <Chip label="tag" variant="outlined" key={i}></Chip>;
+      })}
+    </Stack>
   );
 };
 
-interface TagsViewerProps {
-  tags: Tags;
-}
-
-
-
-const TagsViewer = (props: TagsViewerProps) => {
-
-  return (
-    <Stack direction="row" spacing={1}>
-      {props.tags.map((tag, i) => {
-        return <Chip label="tag" variant="outlined" key={i}></Chip>
-      })}
-    </Stack>
-  )
-}
-
-
-
-export const TagsController = (props: DTagsControllerProps | TTagsControllerProps) => {
-  const [DTags, setDTags] = React.useState<Map<string, string>>(new Map());
-  const [CTags, setCTags] = React.useState<Map<string, string>>(new Map());
-  const [HTags, setHTags] = React.useState<Map<string, string>>(new Map());
-
+export const TagGroupController = (props: DTagGroupControllerProps | TTagGroupControllerProps) => {
+  const [DTagGroup, setDTagGroup] = React.useState<Map<string, string>>(new Map());
+  const [CTagGroup, setCTagGroup] = React.useState<Map<string, string>>(new Map());
+  const [HTagGroup, setHTagGroup] = React.useState<Map<string, string>>(new Map());
 
   if (props.isAdd === true) {
-
     if (props.scale === "whole") {
       return (
         <>
-          <Typography>Dialogue Tags</Typography>
-          {/* <TagsAdder tags={DTags} setTags={(newData) => {
-            props.setTags(Array.from(newData.values()))
-          }}></TagsAdder> */}
-          <TagsAdder onChange={(newData) => {
-            props.setTags(Array.from(newData.values()))
-          }}></TagsAdder>
+          <Typography>Dialogue TagGroup</Typography>
+          {/* <TagGroupAdder TagGroup={DTagGroup} setTagGroup={(newData) => {
+            props.setTagGroup(Array.from(newData.values()))
+          }}></TagGroupAdder> */}
+          {/* < onChange={(newData) => {
+            props.setTagGroup(Array.from(newData.values()))
+          }}></TagGroupAdder> */}
         </>
-      )
-    }
-
-    else {
-      // props.setTags([[...CTags.values()],[...HTags.values()]]);
-      // props.setTags([])
+      );
+    } else {
+      // props.setTagGroup([[...CTagGroup.values()],[...HTagGroup.values()]]);
+      // props.setTagGroup([])
       return (
         <>
-          <Typography>Customer Tags</Typography>
-          {/* <TagsAdder tags={CTags} setTags={setCTags}></TagsAdder> */}
-          <Typography>Helpdesk Tags</Typography>
-          {/* <TagsAdder tags={HTags} setTags={setHTags}></TagsAdder> */}
+          <Typography>Customer TagGroup</Typography>
+          {/* <TagGroupAdder TagGroup={CTagGroup} setTagGroup={setCTagGroup}></TagGroupAdder> */}
+          <Typography>Helpdesk TagGroup</Typography>
+          {/* <TagGroupAdder TagGroup={HTagGroup} setTagGroup={setHTagGroup}></TagGroupAdder> */}
         </>
-      )
+      );
     }
-
   } else {
     // a display component
     if (props.scale === "whole") {
-      return (
-        <TagsViewer tags={props.tags}></TagsViewer>
-      )
+      return <TagGroupViewer TagGroup={props.TagGroup}></TagGroupViewer>;
     } else {
       return (
         <>
-          <Typography>Customer Tags</Typography>
-          <TagsViewer tags={props.tags[0]}></TagsViewer>
-          <Typography>Helpdesk Tags</Typography>
-          <TagsViewer tags={props.tags[1]}></TagsViewer>
+          <Typography>Customer TagGroup</Typography>
+          <TagGroupViewer TagGroup={props.TagGroup[0]}></TagGroupViewer>
+          <Typography>Helpdesk TagGroup</Typography>
+          <TagGroupViewer TagGroup={props.TagGroup[1]}></TagGroupViewer>
         </>
-      )
+      );
     }
   }
-
-
-}
+};

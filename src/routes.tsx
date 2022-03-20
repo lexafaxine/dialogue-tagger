@@ -36,7 +36,7 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 React layouts
-import {Dashboard} from "layouts/tasks";
+import { Dashboard } from "layouts/tasks";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
@@ -56,7 +56,7 @@ const routes = [
     key: "ongoing",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/ongoing",
-    component: <Dashboard/>,
+    component: <Dashboard />,
   },
   {
     type: "collapse",

@@ -84,7 +84,6 @@ export const initialState = {
 
 // Material Dashboard 2 React context provider
 function MaterialUIControllerProvider({ children }) {
-
   const [controller, dispatch] = useReducer(reducer, initialState);
 
   const value = useMemo(() => [controller, dispatch], [controller, dispatch]);

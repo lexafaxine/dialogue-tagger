@@ -31,7 +31,7 @@ export const EditMeasureView: FC = ({}) => {
 
   return (
     <Grid item xs={12}>
-      <MeasureTable measures={measures} onClick={onEditMeasure} />
+      <MeasureTable source={measures} onClick={onEditMeasure} />
       {modalProps && <MeasureModal {...modalProps} onSave={updateMeasure} onClose={onCloseModal} />}
       <Button onClick={onAddMeasure}>Add Measure</Button>
     </Grid>

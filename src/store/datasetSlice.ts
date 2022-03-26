@@ -30,7 +30,7 @@ export const datasetsSlice = createSlice(
   {
     name: "datasets",
     initialState: {
-      datasets: {},
+      datasets: {} as AssociateBy<Dataset, "id">,
     },
     reducers: {
       update: (state, {payload}: AddDatasetAction) => {

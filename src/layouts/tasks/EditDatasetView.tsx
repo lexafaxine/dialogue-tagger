@@ -12,14 +12,12 @@ export const EditDatasetView: FC = ({}) => {
   const {datasets, updateDatasets} = useDatasets();
 
   const onClickDataset = (id: string) => {
-    // return (
-    //   <DialoguePreview dialogues={datasets[id].dialogues}></DialoguePreview>
-    // )
+    console.log(datasets[id].dialogues)
   }
 
   return (
     <Grid item xs={12}>
-      <DatasetTable measures={datasets} onClick={onClickDataset}></DatasetTable>
+      <DatasetTable source={datasets} onClick={onClickDataset}></DatasetTable>
     </Grid>
   )
 }

@@ -9,13 +9,13 @@ export interface FieldSchema<T> {
 
 
 export interface DataTableProps<T extends Record<string, any>> {
-  measures: AssociateBy<T, "id">;
+  source: AssociateBy<T, "id">;
   onClick: (id: string) => void;
   fieldSchemas: FieldSchema<T>[];
 }
 
 
-export function DataTable<T>({ measures, onClick, fieldSchemas }: DataTableProps<T>) {
+export function DataTable<T>({ source, onClick, fieldSchemas }: DataTableProps<T>) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -28,7 +28,7 @@ export function DataTable<T>({ measures, onClick, fieldSchemas }: DataTableProps
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.entries(measures).map(([id, row], i) => (
+          {Object.entries(source).map(([id, row], i) => (
             <TableRow key={id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               {fieldSchemas.map(({ render }) => (
                 <TableCell align="center">{render(row as T)}</TableCell>

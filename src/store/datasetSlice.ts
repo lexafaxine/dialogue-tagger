@@ -3,21 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import { StringLocale } from "yup/lib/locale";
 import { AssociateBy } from "./measureSlice";
 
+interface Turn {
+  sender: string;
+  utterances: Array<string>,
+}
+
 export interface Dialogue {
   // { turns: { sender: string; utterances: string[]; }[]; id: string; }[]
-  turns: {
-    sender: string;
-    utterances: Array<string>,
-  }[];
-
+  turns: Array<Turn>;
   id: string;
 }
 
-
-export interface Dataset {
-  id: string;
+export interface MetaInfo {
   title: string;
   description: string;
+}
+
+export interface Dataset extends MetaInfo {
+  id: string;
   dialogues: Array<Dialogue>;
 }
 

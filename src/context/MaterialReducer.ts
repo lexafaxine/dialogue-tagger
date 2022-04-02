@@ -1,4 +1,4 @@
-import { reducer, initialState } from "context";
+import { initialState, reducer } from "context";
 
 export type MaterialState = typeof initialState;
 

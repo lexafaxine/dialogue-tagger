@@ -1,0 +1,8 @@
+src/examples
+src/components/MD*
+src/assets
+src/layouts
+!src/layouts/tasks
+
+*.js
+tsconfig.json

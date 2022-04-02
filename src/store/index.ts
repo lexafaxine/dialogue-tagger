@@ -1,8 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { MaterialReducer } from "context/MaterialReducer";
-import measuresReducer from "./measure";
+
 import datasetReducer from "./dataset";
-import taskReducer from "./task"
+import measuresReducer from "./measure";
+import taskReducer from "./task";
 
 export const rootReducer = combineReducers({
   material: MaterialReducer,

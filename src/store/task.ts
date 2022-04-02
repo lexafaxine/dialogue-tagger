@@ -7,24 +7,22 @@ export interface AddTaskAction {
   payload: TaskDefinition;
 }
 
-export const taskSlice = createSlice(
-  {
-    name: "tasks",
-    initialState: {
-      tasks: {} as AssociateBy<TaskDefinition, "id">,
+export const taskSlice = createSlice({
+  name: "tasks",
+  initialState: {
+    tasks: {} as AssociateBy<TaskDefinition, "id">,
+  },
+  reducers: {
+    update: (state, { payload }: AddTaskAction) => {
+      return {
+        tasks: {
+          ...state.tasks,
+          [payload.id]: payload,
+        },
+      };
     },
-    reducers: {
-      update: (state, { payload }: AddTaskAction) => {
-        return {
-          tasks: {
-            ...state.tasks,
-            [payload.id]: payload,
-          },
-        };
-      },
-    },
-  }
-);
+  },
+});
 
 export const { update } = taskSlice.actions;
 

@@ -7,22 +7,20 @@ export interface AddDatasetAction {
   payload: Dataset;
 }
 
-export const datasetsSlice = createSlice(
-  {
-    name: "datasets",
-    initialState: {
-      datasets: {} as Sequence2IdMap<Dataset>,
-    },
-    reducers: {
-      update: (state, { payload }: AddDatasetAction) => ({
-        datasets: {
-          ...state.datasets,
-          [payload.id]: payload,
-        }
-      })
-    }
-  }
-);
+export const datasetsSlice = createSlice({
+  name: "datasets",
+  initialState: {
+    datasets: {} as Sequence2IdMap<Dataset>,
+  },
+  reducers: {
+    update: (state, { payload }: AddDatasetAction) => ({
+      datasets: {
+        ...state.datasets,
+        [payload.id]: payload,
+      },
+    }),
+  },
+});
 
 export const { update } = datasetsSlice.actions;
 

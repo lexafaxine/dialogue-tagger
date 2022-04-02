@@ -7,4 +7,5 @@ module.exports = {
   endOfLine: "auto",
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
+  importOrder: ["^react", "^@mui/(.*)$", "^[./]"],
 };

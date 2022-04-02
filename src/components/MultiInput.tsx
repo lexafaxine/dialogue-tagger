@@ -1,6 +1,8 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
 import { randomString } from "utilities";
+
+import React, { useState } from "react";
+
+import { Box, Button, Grid, TextField } from "@mui/material";
 
 interface MultiInputProps {
   initialValue?: Array<string>;

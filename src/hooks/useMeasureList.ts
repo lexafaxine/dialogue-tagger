@@ -1,8 +1,9 @@
 import { Measure } from "model";
-import { useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "store";
 import { update } from "store/measure";
+
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useMeasures = () => {
   const { measures } = useSelector((state: AppState) => state.measures);

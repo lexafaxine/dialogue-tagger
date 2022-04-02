@@ -1,15 +1,13 @@
 import * as React from "react";
-import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { useMeasures } from "hooks/useMeasureList";
-import { AssociateBy, Measure } from "store/measureSlice";
 import { FC } from "react";
-import { Dataset } from "store/datasetSlice";
+import { Sequence2IdMap } from "utilities";
+import { Dataset } from "model";
 
 interface DatasetSelectProps {
-  datasets: AssociateBy<Dataset, "id">
+  datasets: Sequence2IdMap<Dataset>
   datasetId: string;
   setDatasetId: (id: string) => void;
   setIsReset: (bool: boolean) => void;

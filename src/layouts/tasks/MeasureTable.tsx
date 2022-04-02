@@ -2,8 +2,8 @@ import {
   Chip,
 } from "@mui/material";
 import { DataTable, DataTableProps, FieldSchema } from "components/DataTable";
+import { Measure } from "model";
 import React, { FC } from "react";
-import { Measure } from "store/measureSlice";
 
 
 const fieldSchemas: FieldSchema<Measure>[] = [

@@ -1,6 +1,6 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { FC } from "react";
-import { AssociateBy, Measure } from "store/measureSlice";
+import { AssociateBy } from "utilities";
 
 export interface FieldSchema<T> {
   name: string;

@@ -1,5 +1,4 @@
-import { Dataset } from 'store/datasetSlice';
-import  *  as  dialogues  from  './example.json';
+import { Dataset } from 'model';
 
 export const initDataset: Dataset = {
   "id": "init",

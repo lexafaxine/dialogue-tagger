@@ -1,12 +1,12 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Measure, MeasureType, TagGroup } from "store/measureSlice";
 import { WholeTagsInput } from "./WholeTagsInput";
 import { RadioMeasureScale } from "./MeasureTypeRadio";
 import { Button, Stack, TextField } from "@mui/material";
 import { TurnByTurnTagsInput } from "./TurnByTurnTagsInput.tsx";
 import { randomString } from "utilities";
+import { Measure, MeasureType, TagGroup } from "model";
 
 const style = {
   position: "absolute" as "absolute",
@@ -88,14 +88,14 @@ export const MeasureModal: FC<MeasureModalProps> = ({ initialData, onClose, onSa
             }}
           />
           {type === "whole" ? (
-            <WholeTagsInput initialValue={tags} onChange={(tags) => setTags([tags])} />
+            <WholeTagsInput initialValue={tags} onChange={(tags) => setTags([])} />
           ) : type === "turnbyturn" ? (
             <TurnByTurnTagsInput
               initialValue={tags}
               onChange={(i, tags) =>
                 setTags((oldTags) => {
                   const newTags = [...oldTags];
-                  newTags[i] = tags;
+                  // newTags[i] = tags;
                   return newTags;
                 })
               }

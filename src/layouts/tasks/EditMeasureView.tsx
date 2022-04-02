@@ -1,11 +1,8 @@
-// @mui material components
 import Grid from "@mui/material/Grid";
-
-// Data
 import React, { FC, useState } from "react";
 import { Button } from "@mui/material";
 import { MeasureTable } from "./MeasureTable";
-import { useMeasures } from "hooks/useMeasureList";
+import { useMeasures } from "hooks";
 import { MeasureModal, MeasureModalProps } from "./modal/MeasureModal";
 
 export const EditMeasureView: FC = ({}) => {

@@ -1,7 +1,8 @@
+import { Dataset } from "model";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "store";
-import { Dataset, update, } from "store/datasetSlice";
+import { update } from "store/dataset";
 
 const initDataset: Dataset = {
   "id": "init",
@@ -182,7 +183,6 @@ const initDataset: Dataset = {
 
 export const useDatasets = () => {
   const {datasets} = useSelector((state: AppState) => state.datasets);
-  console.log("@@#@## ", datasets)
   const dispatch = useDispatch();
 
   useEffect(() => {

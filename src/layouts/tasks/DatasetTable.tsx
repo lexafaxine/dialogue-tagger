@@ -1,19 +1,6 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Button,
-  Badge,
-  Chip,
-} from "@mui/material";
 import { FieldSchema, DataTableProps, DataTable } from "components/DataTable";
+import { Dataset } from "model";
 import React, { FC } from "react";
-import { Dataset, Dialogue } from "store/datasetSlice";
-import { AssociateBy } from "store/measureSlice";
 
 const fieldSchemas: FieldSchema<Dataset>[] = [
   {

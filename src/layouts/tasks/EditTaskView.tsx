@@ -32,7 +32,7 @@ export const EditTaskView: FC = ({}) => {
     setModalProps({
       measures: measures,
       datasets: datasets,
-      initialData: tasks[id],
+      // initialData: tasks[id],
       onSave: () => {},
       onClose: onCloseModal,
     });

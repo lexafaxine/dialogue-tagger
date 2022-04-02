@@ -1,40 +1,37 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Measure, Dataset, TaskDefinition, TaskProgress } from "model";
 import React, { FC } from "react";
-import { DataTable, DataTableProps, FieldSchema } from "components/DataTable";
-import { useDatasets } from "hooks/useDatasets";
-import { useMeasures } from "hooks/useMeasureList";
-import { useTasks } from "hooks/useTasks";
-import { Dataset } from "store/datasetSlice";
-import { AssociateBy, Measure } from "store/measureSlice";
-import { Task } from "store/taskSlice";
+import { AssociateBy, Sequence2IdMap } from "utilities";
+
 
 interface TaskFieldSchema {
   name: string;
-  render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => ReturnType<FC>;
+  render: (task: TaskDefinition, measures: Sequence2IdMap<Measure>, datasets: Sequence2IdMap<Dataset>) => ReturnType<FC>;
 }
 
 const fieldSchemas: TaskFieldSchema[] = [
   {
     name: "Title",
-    render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => <>{task.title}</>,
+    render: (task) => <>{task.title}</>,
   },
   {
     name: "Description",
-    render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => <>{task.description}</>,
+    render: (task) => <>{task.description}</>,
   },
   {
     name: "Measures",
-    render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => {
+    render: (task) => {
       return (
         <>
-          {measures[task.measureIds[0]].title}...
+          {/* {measures[task.measureIds[0]].title}... */}
+          {"aa"}
         </>
       )
     },
   },
   {
     name: "Dataset",
-    render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => {
+    render: (task, measures, datasets) => {
       return (
         <>
           {
@@ -46,13 +43,13 @@ const fieldSchemas: TaskFieldSchema[] = [
   },
   {
     name: "Progress",
-    render: (task: Task, measures: AssociateBy<Measure, "id">, datasets: AssociateBy<Dataset, "id">) => {
+    render: (task) => {
 
-      const progress: number = task.annotations ? task.annotations.length / task.totalNum : 0;
+      // const progress: number = task.annotations ? task.annotations.length / task.totalNum : 0;
 
       return (
         <>
-          {progress}
+          {0}
         </>
       )
     }
@@ -62,7 +59,7 @@ const fieldSchemas: TaskFieldSchema[] = [
 export interface TaskTableProps {
   measures: AssociateBy<Measure, "id">;
   datasets: AssociateBy<Dataset, "id">;
-  tasks: AssociateBy<Task, "id">;
+  tasks: AssociateBy<TaskDefinition, "id">;
   onClick: (id:string) => void;
 }
 

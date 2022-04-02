@@ -1,12 +1,13 @@
+import { TaskDefinition } from "model";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "store";
-import { Task, update } from "store/taskSlice";
+import { update } from "store/task";
 
 export const useTasks = () => {
   const { tasks } = useSelector((state: AppState) => state.tasks);
   const dispatch = useDispatch();
 
-  const updateTask = (data: Task) => {
+  const updateTask = (data: TaskDefinition) => {
     dispatch(update(data));
   }
 

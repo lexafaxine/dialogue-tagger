@@ -2,12 +2,10 @@ import React, { ChangeEvent, FC, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { randomString } from "utilities";
-import { Task } from "store/taskSlice";
+import { randomString, Sequence2IdMap } from "utilities";
 import { MeasureSelect } from "./MeasureSelect";
-import { AssociateBy, Measure } from "store/measureSlice";
-import { Dataset } from "store/datasetSlice";
 import { DatasetSelect } from "./DatasetSelect";
+import { Dataset, Measure, TaskDefinition, TaskProgress } from "model";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,10 +23,10 @@ const style = {
 };
 
 export interface TaskModalProps {
-  measures: AssociateBy<Measure, "id">;
-  datasets: AssociateBy<Dataset, "id">;
-  initialData?: Task;
-  onSave: (data: Task) => void;
+  measures: Sequence2IdMap<Measure>;
+  datasets: Sequence2IdMap<Dataset>;
+  initialData?: TaskDefinition;
+  onSave: (data: TaskDefinition) => void;
   onClose: () => void;
 }
 
@@ -53,19 +51,17 @@ export const TaskModal: FC<TaskModalProps> = ({measures, datasets, initialData, 
 
   const onSaveClick = () => {
     
-    const totalNum = datasets[datasetId].dialogues.length;
+    // const totalNum = datasets[datasetId].dialogues.length;
 
-    const annotations = isReset === true? [] : (initialData !== undefined)? initialData.annotations : [];
+    // const annotations = isReset === true? [] : (initialData !== undefined)? initialData.annotations : [];
 
     onSave({
-      id: initialData?.id ?? randomString(),
-      title,
-      description,
-      measureIds,
-      datasetId,
-      totalNum,
-      annotations
-    });
+  id: initialData?.id ?? randomString(),
+  title,
+  description,
+  measureIds: [],
+  datasetId: ""
+});
     onClose();
   };
 

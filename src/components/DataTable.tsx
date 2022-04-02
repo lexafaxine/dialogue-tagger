@@ -1,19 +1,19 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { AssociateBy } from "utilities";
+
 import React, { FC } from "react";
-import { AssociateBy, Measure } from "store/measureSlice";
+
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 export interface FieldSchema<T> {
   name: string;
   render: (data: T) => ReturnType<FC>;
 }
 
-
 export interface DataTableProps<T extends Record<string, any>> {
   source: AssociateBy<T, "id">;
   onClick: (id: string) => void;
   fieldSchemas: FieldSchema<T>[];
 }
-
 
 export function DataTable<T>({ source, onClick, fieldSchemas }: DataTableProps<T>) {
   return (
@@ -43,4 +43,4 @@ export function DataTable<T>({ source, onClick, fieldSchemas }: DataTableProps<T
       </Table>
     </TableContainer>
   );
-};
+}

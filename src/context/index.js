@@ -17,11 +17,10 @@ Coded by www.creative-tim.com
   This file is used for controlling the global states of the components,
   you can customize the states for the different components here.
 */
-
-import { createContext, useContext, useReducer, useMemo } from "react";
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
+
+import { createContext, useMemo, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Material Dashboard 2 React main context
@@ -95,6 +94,7 @@ function MaterialUIControllerProvider({ children }) {
 function useMaterialUIController() {
   // const context = useContext(MaterialUI);
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-shadow
   const state = useSelector((state) => state.material);
 
   // if (!context) {

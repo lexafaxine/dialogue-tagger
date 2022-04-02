@@ -1,14 +1,13 @@
 import * as React from "react";
-import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { useMeasures } from "hooks/useMeasureList";
-import { AssociateBy, Measure } from "store/measureSlice";
 import { FC } from "react";
+import { Sequence2IdMap } from "utilities";
+import { Measure } from "model";
 
 interface MeasureSelectProps {
-  measures: AssociateBy<Measure, "id">;
+  measures: Sequence2IdMap<Measure>;
   measureIds: Array<string>;
   setMeasureIds: (ids: Array<string>) => void;
   setIsReset: (bool: boolean) => void;

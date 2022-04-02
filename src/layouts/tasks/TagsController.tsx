@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { Chip, Stack } from "@mui/material";
 import React from "react";
-import { TagGroup } from "store/measureSlice";
+import { TagGroup } from "model";
 
 type TagGroupControllerScale = "whole" | "turnbyturn";
 

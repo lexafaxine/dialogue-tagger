@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { MaterialReducer } from "context/MaterialReducer";
+import { MaterialReducer } from "context/materialReducer";
 
 import datasetReducer from "./dataset";
 import measuresReducer from "./measure";

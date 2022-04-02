@@ -20,7 +20,7 @@ Coded by www.creative-tim.com
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-import { createContext, useContext, useMemo, useReducer } from "react";
+import { createContext, useMemo, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Material Dashboard 2 React main context
@@ -94,6 +94,7 @@ function MaterialUIControllerProvider({ children }) {
 function useMaterialUIController() {
   // const context = useContext(MaterialUI);
   const dispatch = useDispatch();
+  // eslint-disable-next-line no-shadow
   const state = useSelector((state) => state.material);
 
   // if (!context) {

@@ -5,6 +5,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import React, { FC, useState } from "react";
 import { EditDatasetView } from "./EditDatasetView";
 import { EditMeasureView } from "./EditMeasureView";
+import { EditTaskView } from "./EditTaskView";
 
 export const Dashboard: FC = () => {
   return (
@@ -17,6 +18,9 @@ export const Dashboard: FC = () => {
           </Grid>
           <Grid item xs={6}>
             <EditDatasetView />
+          </Grid>
+          <Grid item xs={12}>
+            <EditTaskView></EditTaskView>
           </Grid>
         </Grid>
       </MDBox>

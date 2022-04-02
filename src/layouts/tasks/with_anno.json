@@ -1,0 +1,344 @@
+[
+  {
+    "id": "4233862139754141",
+    "turns": [
+      {
+        "sender": "customer",
+        "utterances": [
+          "#工信投诉#中国联通在广州市番禺区汀沙村,未有通知下情况下进行光纤整改,并且停止了本人的光纤使用(光纤未到期),需要本人缴纳300元左右的整改费才愿意恢复网络.我想问,你们管不管？？？强制性消费吗？ @工信微报 @广州联通 @中国联通 @中国联通广东客服"
+        ]
+      },
+      {
+        "sender": "helpdesk",
+        "utterances": [
+          "您好,关于您反映的问题,请私信方式提供您具体的宽带账号（如有绑定联通手机号码请一起提供）、宽带安装使用地址（番禺区*路*号*层）、有效的联系电话,以便小U详细记录交给工作人员跟进核查.谢谢！"
+        ]
+      },
+      {
+        "sender": "customer",
+        "utterances": [
+          "私信了没人管"
+        ]
+      },
+      {
+        "sender": "helpdesk",
+        "utterances": [
+          "小U暂时没有收到您的私信哦,烦请提供详细信息这边为您跟进的,谢谢！"
+        ]
+      },
+      {
+        "sender": "customer",
+        "utterances": [
+          "图片评论 ¡评论配图"
+        ]
+      },
+      {
+        "sender": "helpdesk",
+        "utterances": [
+          "您好,您反映的问题及提供的信息小U已知悉,并交到我司工作人员核查跟进,请您留意我司工作人员的联系回复哦,谢谢！"
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "quality": {
+          "A": -2,
+          "S": -2,
+          "E": -2
+        },
+        "nugget": [
+          "CNUG0",
+          "HNaN",
+          "CNUG",
+          "HNaN",
+          "CNUG",
+          "HNaN"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": -2
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": -1,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": -1,
+          "S": 1,
+          "E": 2
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 1,
+          "S": 1,
+          "E": 2
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG*"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": 0
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": -1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 1,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNaN",
+          "CNUG",
+          "HNaN",
+          "CNUG",
+          "HNaN"
+        ]
+      },
+      {
+        "quality": {
+          "A": -1,
+          "S": 0,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": -2,
+          "S": -2,
+          "E": -2
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNaN"
+        ]
+      },
+      {
+        "quality": {
+          "A": -2,
+          "S": 0,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNaN"
+        ]
+      },
+      {
+        "quality": {
+          "A": 1,
+          "S": 1,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG*"
+        ]
+      },
+      {
+        "quality": {
+          "A": -1,
+          "S": -1,
+          "E": -1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 1,
+          "S": -1,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG*",
+          "CNaN",
+          "HNaN",
+          "CNaN",
+          "HNUG*"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": -1,
+          "E": -1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNUG",
+          "HNUG",
+          "CNUG",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": -1,
+          "E": 1
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNaN",
+          "HNaN",
+          "CNaN",
+          "HNUG"
+        ]
+      },
+      {
+        "quality": {
+          "A": 0,
+          "S": 0,
+          "E": 0
+        },
+        "nugget": [
+          "CNUG0",
+          "HNUG",
+          "CNaN",
+          "HNUG",
+          "CNUG",
+          "HNaN"
+        ]
+      }
+    ]
+  }]

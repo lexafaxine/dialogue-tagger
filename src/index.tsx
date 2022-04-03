@@ -12,15 +12,16 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import App from "App";
-import configureStore from "store/configureStore";
-
 import React from "react";
+
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 // Material Dashboard 2 React Context Provider
 // import { MaterialUIControllerProvider } from "context";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import configureStore from "store/configureStore";
+
+import App from "App";
 
 ReactDOM.render(
   <Provider store={configureStore()}>
@@ -30,5 +31,5 @@ ReactDOM.render(
       {/* </MaterialUIControllerProvider> */}
     </BrowserRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

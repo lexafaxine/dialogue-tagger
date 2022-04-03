@@ -1,16 +1,19 @@
-import { randomString } from "utilities";
-
 import React, { useState } from "react";
 
-import { Box, Button, Grid, TextField } from "@mui/material";
+import {
+  Box, Button, Grid, TextField,
+} from "@mui/material";
+
+import { randomString } from "utilities";
 
 interface MultiInputProps {
   initialValue?: Array<string>;
   onChange: (values: Array<string>) => void;
 }
 
-export const MultiInput = ({ initialValue, onChange }: MultiInputProps) => {
-  console.log(initialValue);
+export const MultiInput = ({
+  initialValue, onChange,
+}: MultiInputProps) => {
   const [tags, setTags] = useState<Map<string, string>>(new Map((initialValue ?? []).map((r) => [randomString(), r])));
 
   const onClickAdd = () => {
@@ -31,9 +34,16 @@ export const MultiInput = ({ initialValue, onChange }: MultiInputProps) => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%" }}
+    >
       <Button onClick={onClickAdd}>Add Tags</Button>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{
+          xs: 1, sm: 2, md: 3,
+        }}
+      >
         {Array.from(tags).map(([key, value]) => (
           <Grid key={key} item xs={6} pb="1111">
             <TextField

@@ -1,10 +1,12 @@
 import * as React from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 import { FC } from "react";
-import { Sequence2IdMap } from "utilities";
+
+import Autocomplete from "@mui/material/Autocomplete";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+
 import { Dataset } from "model";
+import { Sequence2IdMap } from "utilities";
 
 interface DatasetSelectProps {
   datasets: Sequence2IdMap<Dataset>
@@ -13,21 +15,27 @@ interface DatasetSelectProps {
   setIsReset: (bool: boolean) => void;
 }
 
-export const DatasetSelect: FC<DatasetSelectProps> = ({ datasets, datasetId, setDatasetId, setIsReset }) => {
-
+export const DatasetSelect: FC<DatasetSelectProps> = ({
+  datasets, datasetId, setDatasetId, setIsReset,
+}) => {
   const idOptions = Object.keys(datasets);
-  
+
   const onChange = (event: any, newValue: string | null) => {
     if (newValue) {
       if (newValue !== datasetId) {
         setIsReset(true);
-        setDatasetId(newValue ? newValue : "");
+        setDatasetId(newValue || "");
       }
     }
-  }
+  };
 
   return (
-    <Stack spacing={3} sx={{ width: 500 }}>
+    <Stack
+      spacing={3}
+      sx={{
+        width: 500,
+      }}
+    >
       <Autocomplete
         id="tags-outlined"
         options={idOptions}
@@ -45,4 +53,4 @@ export const DatasetSelect: FC<DatasetSelectProps> = ({ datasets, datasetId, set
       />
     </Stack>
   );
-}
+};

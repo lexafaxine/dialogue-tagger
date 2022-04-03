@@ -1,0 +1,9 @@
+*.js
+*.jsx
+
+src/layouts/
+!src/layouts/tasks
+
+src/examples
+src/assets
+src/components/MD*

@@ -1,10 +1,12 @@
 import * as React from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 import { FC } from "react";
-import { Sequence2IdMap } from "utilities";
+
+import Autocomplete from "@mui/material/Autocomplete";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+
 import { Measure } from "model";
+import { Sequence2IdMap } from "utilities";
 
 interface MeasureSelectProps {
   measures: Sequence2IdMap<Measure>;
@@ -13,24 +15,29 @@ interface MeasureSelectProps {
   setIsReset: (bool: boolean) => void;
 }
 
-export const MeasureSelect: FC<MeasureSelectProps> = ({ measures, measureIds, setMeasureIds, setIsReset }) => {
+export const MeasureSelect: FC<MeasureSelectProps> = ({
+  measures, measureIds, setMeasureIds, setIsReset,
+}) => {
   const [value, setValue] = React.useState<string[]>([]);
 
   const idOptions = Object.keys(measures);
 
   const onChange = (event: any, newValue: string[]) => {
-
     if (newValue.sort().toString() !== measureIds.sort().toString()) {
       setIsReset(true); // change measure --> task reset;
       setMeasureIds(newValue);
     }
 
     setValue(newValue);
-
-  }
+  };
 
   return (
-    <Stack spacing={3} sx={{ width: 500 }}>
+    <Stack
+      spacing={3}
+      sx={{
+        width: 500,
+      }}
+    >
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -50,4 +57,4 @@ export const MeasureSelect: FC<MeasureSelectProps> = ({ measures, measureIds, se
       />
     </Stack>
   );
-}
+};

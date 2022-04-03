@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { Dataset } from "model";
 import { Sequence2IdMap } from "utilities";
+
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface AddDatasetAction {
   type: string;
@@ -9,9 +10,7 @@ export interface AddDatasetAction {
 
 export const datasetsSlice = createSlice({
   name: "datasets",
-  initialState: {
-    datasets: {} as Sequence2IdMap<Dataset>,
-  },
+  initialState: { datasets: {} as Sequence2IdMap<Dataset> },
   reducers: {
     update: (state, { payload }: AddDatasetAction) => ({
       datasets: {

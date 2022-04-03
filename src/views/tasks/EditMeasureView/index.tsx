@@ -1,7 +1,5 @@
 import React, { FC, useState } from "react";
 
-import { Grid } from "@mui/material";
-
 import { useMeasures } from "hooks";
 
 import { MeasureModal, MeasureModalProps } from "./modal";
@@ -15,7 +13,7 @@ export const EditMeasureView: FC = () => {
 
   const onAdd = () => {
     setModalProps({
-      onSave: () => {},
+      onSave: updateMeasure,
       onClose,
     });
   };
@@ -23,15 +21,21 @@ export const EditMeasureView: FC = () => {
   const onEdit = (id: string) => {
     setModalProps({
       initialData: measures[id],
-      onSave: () => {},
+      onSave: updateMeasure,
       onClose,
     });
   };
 
   return (
-    <Grid item xs={12}>
-      <WrappedDataTable title="Measure" source={measures} onRowClick={onEdit} onAdd={onAdd} onDelete={onAdd} />
+    <>
+      <WrappedDataTable
+        title="Measure"
+        data={Object.values(measures)}
+        onRowClick={onEdit}
+        onAdd={onAdd}
+        onDelete={onAdd}
+      />
       {modalProps && <MeasureModal {...modalProps} onSave={updateMeasure} onClose={onClose} />}
-    </Grid>
+    </>
   );
 };

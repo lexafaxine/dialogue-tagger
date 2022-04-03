@@ -182,7 +182,7 @@ export const useDummyDatasets: typeof useDatasets = () => {
 
   useEffect(() => {
     updateDatasets(testDataset);
-  }, []);
+  }, [updateDatasets]);
 
   return {
     datasets,

@@ -23,7 +23,6 @@ const configureStore = () => {
   );
   const persistor = persistStore(store);
   return { ...store, persistor };
-  // return createStore(rootReducer, {});
 };
 
 export default configureStore;

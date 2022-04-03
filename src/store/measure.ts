@@ -12,7 +12,7 @@ export const measuresSlice = createSlice({
   name: "measures",
   initialState: { measures: {} as Sequence2IdMap<Measure> },
   reducers: {
-    update: (state, { payload }: AddMeasureAction) => ({
+    merge: (state, { payload }: AddMeasureAction) => ({
       measures: {
         ...state.measures,
         [payload.id]: payload,
@@ -21,6 +21,6 @@ export const measuresSlice = createSlice({
   },
 });
 
-export const { update } = measuresSlice.actions;
+export const { merge } = measuresSlice.actions;
 
 export default measuresSlice.reducer;

@@ -1,8 +1,5 @@
 import React, { FC, useState } from "react";
 
-// Data
-import Grid from "@mui/material/Grid";
-
 import { useDatasets } from "hooks/useDatasets";
 
 import { DatasetModal, DatasetModalProps } from "./modal";
@@ -16,33 +13,29 @@ export const EditDatasetView: FC = () => {
 
   const onAdd = () => {
     setModalProps({
-      onSave: () => {},
+      onSave: updateDatasets,
       onClose,
     });
   };
 
-  const onEdit = () => {
-    // setModalProps({
-    //   initialData: measures[id],
-    //   onSave: () => {},
-    //   onClose: onCloseModal,
-    // });
+  const onEdit = (id: string) => {
+    setModalProps({
+      initialData: datasets[id],
+      onSave: updateDatasets,
+      onClose,
+    });
   };
 
-  // const onClickDataset = (id: string) => {
-  //   console.log(datasets[id].dialogues);
-  // };
-
   return (
-    <Grid item xs={12}>
+    <>
       <WrappedDataTable
         title="Datasets"
-        source={datasets}
+        data={Object.values(datasets)}
         onRowClick={onEdit}
         onAdd={onAdd}
         onDelete={onAdd}
       />
       {modalProps && <DatasetModal {...modalProps} onSave={updateDatasets} onClose={onClose} />}
-    </Grid>
+    </>
   );
 };

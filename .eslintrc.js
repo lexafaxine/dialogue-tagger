@@ -8,6 +8,7 @@ module.exports = {
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:react-hooks/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -25,21 +26,20 @@ module.exports = {
     "autofix",
   ],
   rules: {
+    "no-shadow": "off",
+    "no-console": "off",
+    "no-unused-expressions": "off",
+    "no-unused-vars": "off",
+    "default-param-last": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "autofix/no-unused-vars": "error",
     "max-len": ["error", {
       code: 120,
       tabWidth: 2,
       ignoreComments: true,
     }],
-    quotes: ["error", "double", {
-      allowTemplateLiterals: true,
-    }],
-    // "prettier/prettier": "error",
-    "default-param-last": "off",
-    "no-console": "off",
-    "no-unused-expressions": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
-    "autofix/no-unused-vars": "error",
+    quotes: ["error", "double", { allowTemplateLiterals: true, }],
     "import/prefer-default-export": "off",
     "import/no-anonymous-default-export": "error",
     "import/extensions": ["error", {
@@ -47,42 +47,38 @@ module.exports = {
       json: "always",
       ts: "never",
     }],
-    "object-curly-newline": ["error", 
-    {
-      ObjectExpression: {
-        minProperties: 3,
-        multiline: true,
-      },
-      ObjectPattern: {
-        minProperties: 3,
-        multiline: true,
-      },
-      ImportDeclaration: {
-        minProperties: 4,
-        multiline: true,
-      },
-      ExportDeclaration: {
-        minProperties: 3,
-        multiline: true,
-      },
-    }
-  ],
-    "react/jsx-filename-extension": ["error", {
-      extensions: [".js", ".jsx", ".tsx"],
-    }],
-    "react/jsx-props-no-spreading": [
-      "warn",
+    "object-curly-newline": ["error",
       {
-        custom: "ignore",
-      },
+        ObjectExpression: {
+          minProperties: 3,
+          multiline: true,
+        },
+        ObjectPattern: {
+          minProperties: 3,
+          multiline: true,
+        },
+        ImportDeclaration: {
+          minProperties: 4,
+          multiline: true,
+        },
+        ExportDeclaration: {
+          minProperties: 3,
+          multiline: true,
+        },
+      }
     ],
+    "react/jsx-curly-spacing": ["error", "never"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": ["error", { extensions: [".js", ".jsx", ".tsx"], }],
+    "react/jsx-props-no-spreading": ["warn", { custom: "ignore", }],
     "react/require-default-props": "off",
     "react/jsx-wrap-multilines": "error",
     "react/jsx-max-props-per-line": ["error", {
       maximum: 1,
       when: "multiline",
     }],
-    "react/jsx-curly-spacing": ["error", "never"],
+    
     "react/function-component-definition": ["error", {
       namedComponents: ["function-declaration", "arrow-function"],
     }],

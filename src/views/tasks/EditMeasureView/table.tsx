@@ -14,6 +14,14 @@ const schema: FieldSchema<Measure>[] = [
     name: "Title",
     render: (m) => <TableCell>{m.title}</TableCell>,
   },
+  {
+    name: "Description",
+    render: (m) => <TableCell>{m.description}</TableCell>,
+  },
+  {
+    name: "Tags",
+    render: (m) => <TableCell>{m.tags.join(",")}</TableCell>,
+  },
 ];
 
 // eslint-disable-next-line max-len

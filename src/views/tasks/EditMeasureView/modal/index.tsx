@@ -2,13 +2,14 @@ import React, { FC } from "react";
 
 import { ModalSchemaForm } from "components/ModalSchemaForm";
 import { TagGroup } from "model";
+import { randomString } from "utilities";
 import { ModalLayout } from "views/tasks/ModalLayout";
 
 import { IModel, ISchema, schema } from "./schema";
 
 function fromFormSchemaModel(data: ISchema): IModel {
   return {
-    id: data.id,
+    id: data.id ?? randomString(),
     description: data.description,
     title: data.title,
     type: data.type,

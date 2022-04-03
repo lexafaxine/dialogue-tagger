@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { TaskDefinition } from "model";
-import { AssociateBy } from "utilities";
+import { Sequence2IdMap } from "utilities";
 
 export interface AddTaskAction {
   type: string;
@@ -10,9 +10,9 @@ export interface AddTaskAction {
 
 export const taskSlice = createSlice({
   name: "tasks",
-  initialState: { tasks: {} as AssociateBy<TaskDefinition, "id"> },
+  initialState: { tasks: {} as Sequence2IdMap<TaskDefinition> },
   reducers: {
-    update: (state, { payload }: AddTaskAction) => ({
+    merge: (state, { payload }: AddTaskAction) => ({
       tasks: {
         ...state.tasks,
         [payload.id]: payload,
@@ -21,6 +21,6 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { update } = taskSlice.actions;
+export const { merge } = taskSlice.actions;
 
 export default taskSlice.reducer;

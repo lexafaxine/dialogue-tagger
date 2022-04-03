@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Box, Button, Grid, TextField } from "@mui/material";
+import {
+  Box, Button, Grid, TextField,
+} from "@mui/material";
 
 import { randomString } from "utilities";
 
@@ -24,7 +26,7 @@ export const MultiInput = ({ initialValue, onChange }: MultiInputProps) => {
   };
 
   const onDeleteBuilder = (targetKey: string) => () => {
-    const newMap = new Map(Array.from(tags).filter(([k, _]) => k !== targetKey));
+    const newMap = new Map(Array.from(tags).filter(([k]) => k !== targetKey));
     setTags(newMap);
     onChange(Array.from(newMap.values()));
   };

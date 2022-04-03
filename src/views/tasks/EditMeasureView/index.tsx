@@ -7,7 +7,7 @@ import { useMeasures } from "hooks";
 import { MeasureModal, MeasureModalProps } from "./modal";
 import { WrappedDataTable } from "./table";
 
-export const EditMeasureView: FC = ({}) => {
+export const EditMeasureView: FC = () => {
   const { measures, updateMeasure } = useMeasures();
   const [modalProps, setModalProps] = useState<null | MeasureModalProps>(null);
 

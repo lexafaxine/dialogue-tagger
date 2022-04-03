@@ -7,6 +7,7 @@ module.exports = {
     "plugin:react/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -21,6 +22,7 @@ module.exports = {
     "@typescript-eslint",
     "simple-import-sort",
     "import",
+    "autofix",
   ],
   rules: {
     "max-len": ["error", {
@@ -33,8 +35,11 @@ module.exports = {
     }],
     // "prettier/prettier": "error",
     "default-param-last": "off",
+    "no-console": "off",
+    "no-unused-expressions": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "error",
+    "autofix/no-unused-vars": "error",
     "import/prefer-default-export": "off",
     "import/no-anonymous-default-export": "error",
     "import/extensions": ["error", {
@@ -46,12 +51,10 @@ module.exports = {
     {
       ObjectExpression: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
       ObjectPattern: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
       ImportDeclaration: {
@@ -60,7 +63,6 @@ module.exports = {
       },
       ExportDeclaration: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
     }
@@ -88,7 +90,7 @@ module.exports = {
       groups: [
         ["^react$", "^@reduxjs", "^redux", "^@rjsf"],
         ["^@mui"],
-        ["^@"]
+        ["^@"],
         ["^[a-z]"],
         ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
         ["^\\.\\.(?!/?$)", "^\\.\\./?$"],

@@ -1,32 +1,27 @@
 import React, { FC, useState } from "react";
 
 // Data
-import { Button, TableCell } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import { DataTable, DataTableProps, FieldSchema } from "components/DataTable";
 import { useDatasets } from "hooks/useDatasets";
-import { Dataset } from "model";
 
+import { DatasetModal, DatasetModalProps } from "./modal";
 import { WrappedDataTable } from "./table";
 
-export interface DatasetModalProps {
-}
-
-export const EditDatasetView: FC = ({}) => {
+export const EditDatasetView: FC = () => {
   const { datasets, updateDatasets } = useDatasets();
   const [modalProps, setModalProps] = useState<null | DatasetModalProps>(null);
 
-  const onCloseModal = () => setModalProps(null);
+  const onClose = () => setModalProps(null);
 
   const onAdd = () => {
     setModalProps({
       onSave: () => {},
-      onClose: onCloseModal,
+      onClose,
     });
   };
 
-  const onEdit = (id: string) => {
+  const onEdit = () => {
     // setModalProps({
     //   initialData: measures[id],
     //   onSave: () => {},
@@ -34,13 +29,20 @@ export const EditDatasetView: FC = ({}) => {
     // });
   };
 
-  const onClickDataset = (id: string) => {
-    console.log(datasets[id].dialogues);
-  };
+  // const onClickDataset = (id: string) => {
+  //   console.log(datasets[id].dialogues);
+  // };
 
   return (
     <Grid item xs={12}>
-      <WrappedDataTable title="Dataset" source={datasets} onRowClick={onClickDataset} onAdd={onAdd} onDelete={onAdd} />
+      <WrappedDataTable
+        title="Datasets"
+        source={datasets}
+        onRowClick={onEdit}
+        onAdd={onAdd}
+        onDelete={onAdd}
+      />
+      {modalProps && <DatasetModal {...modalProps} onSave={updateDatasets} onClose={onClose} />}
     </Grid>
   );
 };

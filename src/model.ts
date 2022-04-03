@@ -25,10 +25,15 @@ export interface Tag extends Idable<TTagId> {
 
 export type TagGroup = Array<Tag>;
 
-export type MeasureType = "turnbyturn" | "whole";
+export enum MeasureTaskTypeEnum {
+  Whole = "whole",
+  TurnByTurn = "turnbyturn",
+}
+
+export type MeasureType = `${MeasureTaskTypeEnum}`;
 
 export interface Measure extends MetaInfo, Idable<TMeasureId> {
-  type: "turnbyturn" | "whole";
+  type: MeasureType;
   tags: Array<TagGroup>;
 }
 

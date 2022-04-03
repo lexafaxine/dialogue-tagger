@@ -1,118 +1,50 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { FC } from "react";
 
-import { Button, Stack, TextField, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import { ModalSchemaForm } from "components/ModalSchemaForm";
+import { ModalLayout } from "views/tasks/ModalLayout";
 
-import { Dataset, Measure, TaskDefinition, TaskProgress } from "model";
-import { randomString, Sequence2IdMap } from "utilities";
+import {
+  DatasetChoice, IFormData, IModel, MeasureChoice, schemaBuilder,
+} from "./schema";
 
-import { DatasetSelect } from "./DatasetSelect";
-import { MeasureSelect } from "./MeasureSelect";
+function fromFormSchemaModel(data: IFormData): IModel {
+  return {
+    id: data.id,
+    description: data.description,
+    title: data.title,
+  };
+}
 
-const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  maxHeight: "75%",
-  minHeight: "75%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  overflow: "scroll",
-};
+function toFormSchemaModel(m: IModel): IFormData {
+  return {
+    ...m,
+    [`tags:${m.type}`]: m.tags,
+  } as unknown as IFormData;
+}
 
 export interface TaskModalProps {
-  measures: Sequence2IdMap<Measure>;
-  datasets: Sequence2IdMap<Dataset>;
-  initialData?: TaskDefinition;
-  onSave: (data: TaskDefinition) => void;
+  initialData?: IModel;
+  measures: MeasureChoice[];
+  datasets: DatasetChoice[];
+  onSave: (data: IModel) => void;
   onClose: () => void;
 }
 
 export const TaskModal: FC<TaskModalProps> = ({
-  measures, datasets, initialData, onSave, onClose,
-}) => {
-  const [title, setTitle] = useState(initialData?.title ?? "");
-  const [description, setDescription] = useState(initialData?.description ?? "");
-  const [measureIds, setMeasureIds] = useState<Array<string>>([]);
-  const [datasetId, setDatasetId] = useState<string>("");
-
-  const [isReset, setIsReset] = useState(false);
-
-  const isCreate = initialData === undefined;
-
-  const onDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
-  };
-
-  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const onSaveClick = () => {
-    // const totalNum = datasets[datasetId].dialogues.length;
-
-    // const annotations = isReset === true? [] : (initialData !== undefined)? initialData.annotations : [];
-
-    onSave({
-      id: initialData?.id ?? randomString(),
-      title,
-      description,
-      measureIds: [],
-      datasetId: "",
-    });
-    onClose();
-  };
-
-  return (
-    <Modal open aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-      <Box sx={style}>
-        <Box
-          component="form"
-          sx={{ "& > :not(style)": { m: 1, width: "50ch" } }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            label="Title"
-            color="secondary"
-            size="small"
-            defaultValue={title}
-            onChange={onTitleChange}
-            disabled={initialData !== undefined}
-          />
-          <TextField
-            label="Description"
-            color="secondary"
-            multiline
-            rows={4}
-            defaultValue={description}
-            onChange={onDescriptionChange}
-          />
-          <Typography>
-            Select Meausures...
-          </Typography>
-          <MeasureSelect measures={measures} measureIds={measureIds} setMeasureIds={setMeasureIds} setIsReset={setIsReset} />
-          <Typography>
-            Select Dataset
-          </Typography>
-          <DatasetSelect datasets={datasets} datasetId={datasetId} setDatasetId={setDatasetId} setIsReset={setIsReset} />
-        </Box>
-        <Box sx={{ pl: 1 }}>
-          <Stack direction="row" spacing={1}>
-            <Button variant="contained" size="small" onClick={onSaveClick}>
-              Save
-            </Button>
-            <Button variant="contained" size="small" onClick={onClose}>
-              Close
-            </Button>
-          </Stack>
-        </Box>
-      </Box>
-    </Modal>
-  );
-};
+  initialData,
+  onClose,
+  onSave,
+  measures,
+  datasets,
+}) => (
+  <ModalLayout>
+    <ModalSchemaForm<IFormData, IModel>
+      schema={schemaBuilder(measures, datasets)}
+      initialModel={initialData}
+      fromFormDataTransformer={fromFormSchemaModel}
+      toFormDataTransformer={toFormSchemaModel}
+      onSave={onSave}
+      onClose={onClose}
+    />
+  </ModalLayout>
+);

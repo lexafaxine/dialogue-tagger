@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Dataset } from "model";
 import { Sequence2IdMap } from "utilities";
 
-export interface AddDatasetAction {
+export interface MergeDatasetAction {
   type: string;
   payload: Dataset;
 }
@@ -12,7 +12,7 @@ export const datasetsSlice = createSlice({
   name: "datasets",
   initialState: { datasets: {} as Sequence2IdMap<Dataset> },
   reducers: {
-    update: (state, { payload }: AddDatasetAction) => ({
+    merge: (state, { payload }: MergeDatasetAction) => ({
       datasets: {
         ...state.datasets,
         [payload.id]: payload,
@@ -21,6 +21,6 @@ export const datasetsSlice = createSlice({
   },
 });
 
-export const { update } = datasetsSlice.actions;
+export const { merge } = datasetsSlice.actions;
 
 export default datasetsSlice.reducer;

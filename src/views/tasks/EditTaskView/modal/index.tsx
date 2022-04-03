@@ -10,16 +10,15 @@ import {
 function fromFormSchemaModel(data: IFormData): IModel {
   return {
     id: data.id,
-    description: data.description,
     title: data.title,
+    description: data.description,
+    measureIds: data.measureIds,
+    datasetId: data.datasetId,
   };
 }
 
 function toFormSchemaModel(m: IModel): IFormData {
-  return {
-    ...m,
-    [`tags:${m.type}`]: m.tags,
-  } as unknown as IFormData;
+  return { ...m } as IFormData;
 }
 
 export interface TaskModalProps {

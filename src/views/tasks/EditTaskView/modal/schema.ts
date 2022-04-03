@@ -53,4 +53,4 @@ export function schemaBuilder(measures: MeasureChoice[], datasets: DatasetChoice
 
 export type IFormData = Omit<TaskDefinition, "tags">
 
-export type IModel = any;
+export type IModel = TaskDefinition;

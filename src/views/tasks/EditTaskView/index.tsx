@@ -1,12 +1,6 @@
-// @mui material components
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 
-// Data
-import Grid from "@mui/material/Grid";
-
-import { useDatasets } from "hooks/useDatasets";
-import { useMeasures } from "hooks/useMeasures";
-import { useTasks } from "hooks/useTasks";
+import { useDatasets, useMeasures, useTasks } from "hooks";
 
 import { TaskModal, TaskModalProps } from "./modal";
 import { WrappedDataTable } from "./table";
@@ -14,44 +8,45 @@ import { WrappedDataTable } from "./table";
 export const EditTaskView: FC = () => {
   const { measures } = useMeasures();
   const { datasets } = useDatasets();
-  const { tasks, updateTask } = useTasks();
+  const { tasks, mergeTasks } = useTasks();
 
   const [modalProps, setModalProps] = useState<null | TaskModalProps>(null);
 
-  const onCloseModal = () => setModalProps(null);
-
   const measureChoices = Object.entries(measures).map(([id, r]) => ({ id, title: r.title }));
+
   const datasetsChoices = Object.entries(datasets).map(([id, r]) => ({ id, title: r.title }));
 
-  const onAddTask = () => {
-    setModalProps({
-      measures: measureChoices,
-      datasets: datasetsChoices,
-      onSave: () => { },
-      onClose: onCloseModal,
-    });
-  };
+  const onClose = () => setModalProps(null);
 
-  const onEditTask = () => {
+  const onAdd = useCallback(() => {
     setModalProps({
       measures: measureChoices,
       datasets: datasetsChoices,
-      // initialData: tasks[id],
-      onSave: () => { },
-      onClose: onCloseModal,
+      onSave: mergeTasks,
+      onClose,
+    });
+  }, [datasetsChoices, measureChoices, mergeTasks]);
+
+  const onEdit = (id: string) => {
+    setModalProps({
+      initialData: tasks[id],
+      measures: measureChoices,
+      datasets: datasetsChoices,
+      onSave: mergeTasks,
+      onClose,
     });
   };
 
   return (
-    <Grid item xs={12}>
+    <>
       <WrappedDataTable
         title="Task"
-        source={tasks}
-        onRowClick={onEditTask}
-        onAdd={onAddTask}
-        onDelete={onAddTask}
+        data={Object.values(tasks)}
+        onRowClick={onEdit}
+        onAdd={onAdd}
+        onDelete={onAdd}
       />
-      {modalProps && <TaskModal {...modalProps} onSave={updateTask} onClose={onCloseModal} />}
-    </Grid>
+      {modalProps && <TaskModal {...modalProps} onSave={mergeTasks} onClose={onClose} />}
+    </>
   );
 };

@@ -1,26 +1,11 @@
 import React, { FC, useState } from "react";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
-import Switch from "@mui/material/Switch";
 import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 
-import { AssociateBy, Idable, Sequence2IdMap } from "utilities";
+import { GetComponentProps, Idable } from "utilities";
 
 import { EnhancedTableBody } from "./TableBody";
 import { EnhancedTableHead } from "./TableHeader";
@@ -31,10 +16,13 @@ export interface FieldSchema<T> {
   render: (data: T) => ReturnType<FC>;
 }
 
-export interface DataTableProps<T extends Record<string, any>> {
+const rowsPerPageOptions = [5, 10, 25, 50];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface DataTableProps<T extends Idable> {
   title: string;
-  source: AssociateBy<T, "id">;
   schema: FieldSchema<T>[];
+  data: T[];
 
   onAdd: () => void;
   onDelete: () => void;
@@ -42,22 +30,30 @@ export interface DataTableProps<T extends Record<string, any>> {
 }
 
 export function DataTable<T extends Idable>({
-  title, source, onRowClick, schema, onAdd, onDelete,
+  title,
+  data,
+  schema,
+  onAdd,
+  onDelete,
+  onRowClick,
 }: DataTableProps<T>) {
-  const rows = Object.values(source);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [rowSelected, setRowSelected] = useState<Set<string>>(new Set());
+
+  const rows = data;
+  const rowCount = rows.length;
+  const numSelected = rowSelected.size;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const handleChangePage = (event: any, newPage: any) => {
+  const handleChangePage: GetComponentProps<typeof TablePagination>["onPageChange"] = (e, newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: any) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage: GetComponentProps<typeof TablePagination>["onRowsPerPageChange"] = (e) => {
+    setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
 
@@ -65,24 +61,35 @@ export function DataTable<T extends Idable>({
     <Paper sx={{ width: "100%", mb: 2 }}>
       <EnhancedTableToolbar
         title={title}
-        numSelected={0}
+        numSelected={numSelected}
         onAdd={onAdd}
         onDelete={onDelete}
       />
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 750 }}
-          aria-labelledby="tableTitle"
+          aria-labelledby={title}
           size="small"
         >
-          <EnhancedTableHead<T> schema={schema} numSelected={1} rowCount={0} />
-          <EnhancedTableBody<T> schema={schema} data={source} />
+          <EnhancedTableHead<T>
+            schema={schema}
+            numSelected={numSelected}
+            rowCount={rowCount}
+            onSelectAllClick={() => setRowSelected(new Set(rows.map(({ id }) => id)))}
+          />
+          <EnhancedTableBody<T>
+            schema={schema}
+            data={data}
+            rowSelected={rowSelected}
+            handleSelected={(id) => setRowSelected(new Set(rowSelected).add(id))}
+            handleRowClick={onRowClick}
+          />
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={rowsPerPageOptions}
         component="div"
-        count={rows.length}
+        count={rowCount}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

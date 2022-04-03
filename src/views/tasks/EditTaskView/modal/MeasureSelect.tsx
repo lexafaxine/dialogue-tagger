@@ -22,6 +22,7 @@ export const MeasureSelect: FC<MeasureSelectProps> = ({
 
   const idOptions = Object.keys(measures);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (event: any, newValue: string[]) => {
     if (newValue.sort().toString() !== measureIds.sort().toString()) {
       setIsReset(true); // change measure --> task reset;

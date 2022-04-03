@@ -1,40 +1,50 @@
 import React from "react";
 
-import { Checkbox, TableBody, TableCell, TableRow } from "@mui/material";
+import {
+  Checkbox, TableBody, TableCell, TableRow,
+} from "@mui/material";
 
 import { FieldSchema } from "components/DataTable";
-import { Idable, Sequence2IdMap } from "utilities";
+import { Idable } from "utilities";
 
 interface EnhancedTableBodyProps<T extends Idable> {
   schema: FieldSchema<T>[];
-  data: Sequence2IdMap<T>;
+  data: T[];
+  rowSelected: Set<string>;
+  handleSelected: (rowId: string) => void;
+  handleRowClick: (rowId: string) => void;
 }
 
-export function EnhancedTableBody<T extends Idable>({ data, schema }: EnhancedTableBodyProps<T>) {
+export function EnhancedTableBody<T extends Idable>({
+  data,
+  schema,
+  rowSelected,
+  handleSelected,
+  handleRowClick,
+}: EnhancedTableBodyProps<T>) {
   return (
     <TableBody>
-      {Object.entries(data).map(([id, row], index) => {
-        // const isItemSelected = isSelected(row.name);
+      {data.map((row, index) => {
+        const isItemSelected = rowSelected.has(row.id);
         const labelId = `enhanced-table-checkbox-${index}`;
         return (
           <TableRow
             hover
-            // onClick={(event) => handleClick(event, row.name)}
-            role="checkbox"
-            // aria-checked={isItemSelected}
+            onClick={() => handleRowClick(row.id)}
             tabIndex={-1}
-            key={id}
-            // selected={isItemSelected}
+            key={row.id}
+            selected={isItemSelected}
+            aria-checked={isItemSelected}
           >
             <TableCell padding="checkbox">
               <Checkbox
                 color="primary"
-                checked={false}
+                checked={isItemSelected}
+                onClick={() => handleSelected(row.id)}
                 inputProps={{ "aria-labelledby": labelId }}
               />
             </TableCell>
-
-            {schema.map(({ render }) => render(row as T))}
+            {schema.map(({ render }) => render(row))}
           </TableRow>
         );
       })}

@@ -27,7 +27,7 @@ export const useDummyMeasures: typeof useMeasures = () => {
 
   useEffect(() => {
     testMeasures.forEach(updateMeasure);
-  }, []);
+  }, [updateMeasure]);
 
   return {
     measures,

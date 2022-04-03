@@ -20,6 +20,7 @@ export const DatasetSelect: FC<DatasetSelectProps> = ({
 }) => {
   const idOptions = Object.keys(datasets);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (event: any, newValue: string | null) => {
     if (newValue) {
       if (newValue !== datasetId) {

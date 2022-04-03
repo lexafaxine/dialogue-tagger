@@ -19,14 +19,14 @@ module.exports = {
   plugins: [
     "react",
     "@typescript-eslint",
-    // "prettier",
-    "import",
     "simple-import-sort",
+    "import",
   ],
   rules: {
     "max-len": ["error", {
       code: 120,
       tabWidth: 2,
+      ignoreComments: true,
     }],
     quotes: ["error", "double", {
       allowTemplateLiterals: true,
@@ -34,7 +34,8 @@ module.exports = {
     // "prettier/prettier": "error",
     "default-param-last": "off",
     "no-unused-vars": "off",
-    "import/prefer-default-export": ["off"],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "import/prefer-default-export": "off",
     "import/no-anonymous-default-export": "error",
     "import/extensions": ["error", {
       js: "ignorePackages",
@@ -54,8 +55,7 @@ module.exports = {
         multiline: true,
       },
       ImportDeclaration: {
-        minProperties: 5,
-        consistent: false,
+        minProperties: 4,
         multiline: true,
       },
       ExportDeclaration: {
@@ -74,6 +74,7 @@ module.exports = {
         custom: "ignore",
       },
     ],
+    "react/require-default-props": "off",
     "react/jsx-wrap-multilines": "error",
     "react/jsx-max-props-per-line": ["error", {
       maximum: 1,
@@ -85,8 +86,9 @@ module.exports = {
     }],
     "simple-import-sort/imports": ["error", {
       groups: [
-        ["^react$", "^@reduxjs", "^redux"],
+        ["^react$", "^@reduxjs", "^redux", "^@rjsf"],
         ["^@mui"],
+        ["^@"]
         ["^[a-z]"],
         ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
         ["^\\.\\.(?!/?$)", "^\\.\\./?$"],

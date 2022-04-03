@@ -8,14 +8,15 @@ import { Idable } from "utilities";
 interface EnhancedTableHeadProps<T> {
   schema: FieldSchema<T>[];
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  // onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
+  // onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   rowCount: number;
 }
 
 export function EnhancedTableHead<T extends Idable>(props: EnhancedTableHeadProps<T>) {
   const {
-    onSelectAllClick, numSelected, rowCount, schema,
+    // onSelectAllClick,
+    numSelected, rowCount, schema,
   } = props;
 
   // const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -30,7 +31,7 @@ export function EnhancedTableHead<T extends Idable>(props: EnhancedTableHeadProp
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
+            // onChange={onSelectAllClick}
             inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>

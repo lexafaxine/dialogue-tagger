@@ -14,6 +14,11 @@ export type TTaskDefinitionId = string;
 
 export type TTaskProgressId = string;
 
+export interface MetaInfo {
+  title: string;
+  description: string;
+}
+
 export interface Tag extends Idable<TTagId> {
   name: string;
 }
@@ -29,11 +34,6 @@ export interface Measure extends MetaInfo, Idable<TMeasureId> {
 
 export interface Sender extends Idable<TSenderId> {
   name: string;
-}
-
-export interface MetaInfo {
-  title: string;
-  description: string;
 }
 
 export interface Turn {

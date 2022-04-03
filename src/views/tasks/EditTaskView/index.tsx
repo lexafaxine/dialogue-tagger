@@ -6,11 +6,11 @@ import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 import { useDatasets } from "hooks/useDatasets";
-import { useMeasures } from "hooks/useMeasureList";
+import { useMeasures } from "hooks/useMeasures";
 import { useTasks } from "hooks/useTasks";
 
-import { TaskModal, TaskModalProps } from "./modal/TaskModal";
-import { TaskTable } from "./TaskTable";
+import { TaskModal, TaskModalProps } from "./modal";
+import { TaskTable } from "./table";
 
 export const EditTaskView: FC = ({}) => {
   const { measures, updateMeasure } = useMeasures();

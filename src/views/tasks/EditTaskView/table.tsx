@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+} from "@mui/material";
 
 import { Dataset, Measure, TaskDefinition, TaskProgress } from "model";
 import { AssociateBy, Sequence2IdMap } from "utilities";
@@ -67,10 +69,7 @@ export const TaskTable: FC<TaskTableProps> = ({
 }) => (
   <TableContainer component={Paper}>
     <Table aria-label="simple table">
-      <TableHead style={{
-        display: "table-header-group",
-      }}
-      >
+      <TableHead style={{ display: "table-header-group" }}>
         <TableRow>
           {fieldSchemas.map(({ name }) => (
             <TableCell align="center">{name}</TableCell>
@@ -82,11 +81,7 @@ export const TaskTable: FC<TaskTableProps> = ({
         {Object.entries(tasks).map(([id, row], i) => (
           <TableRow
             key={id}
-            sx={{
-              "&:last-child td, &:last-child th": {
-                border: 0,
-              },
-            }}
+            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
             {fieldSchemas.map(({ render }) => (
               <TableCell align="center">{render(row, measures, datasets)}</TableCell>

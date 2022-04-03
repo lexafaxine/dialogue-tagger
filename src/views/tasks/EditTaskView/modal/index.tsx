@@ -73,11 +73,7 @@ export const TaskModal: FC<TaskModalProps> = ({
       <Box sx={style}>
         <Box
           component="form"
-          sx={{
-            "& > :not(style)": {
-              m: 1, width: "50ch",
-            },
-          }}
+          sx={{ "& > :not(style)": { m: 1, width: "50ch" } }}
           noValidate
           autoComplete="off"
         >
@@ -106,10 +102,7 @@ export const TaskModal: FC<TaskModalProps> = ({
           </Typography>
           <DatasetSelect datasets={datasets} datasetId={datasetId} setDatasetId={setDatasetId} setIsReset={setIsReset} />
         </Box>
-        <Box sx={{
-          pl: 1,
-        }}
-        >
+        <Box sx={{ pl: 1 }}>
           <Stack direction="row" spacing={1}>
             <Button variant="contained" size="small" onClick={onSaveClick}>
               Save

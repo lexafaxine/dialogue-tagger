@@ -31,14 +31,10 @@ export function EnhancedTableHead<T extends Idable>(props: EnhancedTableHeadProp
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
+            inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>
-        {schema.map(({
-          name,
-        }, i) => (
+        {schema.map(({ name }, i) => (
           <TableCell
             key={name}
             align="left"

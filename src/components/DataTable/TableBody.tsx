@@ -10,9 +10,7 @@ interface EnhancedTableBodyProps<T extends Idable> {
   data: Sequence2IdMap<T>;
 }
 
-export function EnhancedTableBody<T extends Idable>({
-  data, schema,
-}: EnhancedTableBodyProps<T>) {
+export function EnhancedTableBody<T extends Idable>({ data, schema }: EnhancedTableBodyProps<T>) {
   return (
     <TableBody>
       {Object.entries(data).map(([id, row], index) => {
@@ -32,15 +30,11 @@ export function EnhancedTableBody<T extends Idable>({
               <Checkbox
                 color="primary"
                 checked={false}
-                inputProps={{
-                  "aria-labelledby": labelId,
-                }}
+                inputProps={{ "aria-labelledby": labelId }}
               />
             </TableCell>
 
-            {schema.map(({
-              render,
-            }) => render(row as T))}
+            {schema.map(({ render }) => render(row as T))}
           </TableRow>
         );
       })}

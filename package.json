@@ -51,8 +51,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix --fix-type problem .",
-    "lint:strict": "eslint --fix --fix-type problem,suggestion,layout,directive .",
+    "lint": "eslint --fix-dry-run",
+    "lint:fix": "eslint --fix .",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "prettier": "prettier --write ."
   },

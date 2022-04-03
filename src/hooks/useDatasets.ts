@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 
 import { Dataset } from "model";
-import {
-  useDispatch, useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "store";
 import { update } from "store/dataset";
 

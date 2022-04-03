@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { useEffect } from "react";
 
-import { Dataset } from "model";
+import { Dataset } from "models";
 
 import { useDatasets } from "./useDatasets";
 

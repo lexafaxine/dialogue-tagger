@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 
 import { ModalSchemaForm } from "components/ModalSchemaForm";
+import { randomString } from "utilities";
 import { ModalLayout } from "views/tasks/ModalLayout";
 
 import { IFormData, IModel, schema } from "./schema";
 
 function fromFormSchemaModel(data: IFormData): IModel {
   return {
-    id: data.id,
+    id: data.id ?? randomString(),
     description: data.description,
     title: data.title,
     dialogues: [],

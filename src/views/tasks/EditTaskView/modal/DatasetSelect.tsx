@@ -5,7 +5,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-import { Dataset } from "model";
+import { Dataset } from "models";
 import { Sequence2IdMap } from "utilities";
 
 interface DatasetSelectProps {

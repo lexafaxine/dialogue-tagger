@@ -1,14 +1,16 @@
-import { TaskDefinition } from "model";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "store";
-import { merge } from "store/task";
+import { useLiveQuery } from "dexie-react-hooks";
+import { TaskDefinition } from "models";
+import { db } from "store/indexdb";
+import { asIdMap } from "utilities";
+
+import { useVersion } from "./useVersion";
 
 export const useTasks = () => {
-  const { tasks } = useSelector((state: AppState) => state.tasks);
-  const dispatch = useDispatch();
+  const { version, tick } = useVersion();
+  const tasks = asIdMap(useLiveQuery(() => db.tasksDefinitions?.toArray(), [version]) ?? []);
 
   const mergeTasks = (data: TaskDefinition) => {
-    dispatch(merge(data));
+    db.tasksDefinitions.put(data).then(tick);
   };
 
   return {

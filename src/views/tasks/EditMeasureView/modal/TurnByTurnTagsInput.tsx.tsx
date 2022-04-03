@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Typography } from "@mui/material";
 
 import { MultiInput } from "components/MultiInput";
-import { TagGroup } from "model";
+import { TagGroup } from "models";
 
 interface TurnByTurnTagsInputProps {
   initialValue: TagGroup[];

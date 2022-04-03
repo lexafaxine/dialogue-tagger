@@ -1,5 +1,5 @@
 import { JSONSchema7 } from "json-schema";
-import { Dataset } from "model";
+import { Dataset } from "models";
 
 export const schema: JSONSchema7 = {
   title: "Dataset",

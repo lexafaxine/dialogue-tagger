@@ -1,5 +1,5 @@
 import { JSONSchema7 } from "json-schema";
-import { Dataset, Measure, TaskDefinition } from "model";
+import { Dataset, Measure, TaskDefinition } from "models";
 
 export type MeasureChoice = Pick<Measure, "id" | "title">;
 

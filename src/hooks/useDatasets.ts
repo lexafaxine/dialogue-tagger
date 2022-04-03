@@ -1,13 +1,16 @@
-import { Dataset } from "model";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "store";
+import { useLiveQuery } from "dexie-react-hooks";
+import { Dataset } from "models";
+import { db } from "store/indexdb";
+import { asIdMap } from "utilities";
+
+import { useVersion } from "./useVersion";
 
 export const useDatasets = () => {
-  const { datasets } = useSelector((state: AppState) => state.datasets);
-  const dispatch = useDispatch();
+  const { version, tick } = useVersion();
+  const datasets = asIdMap(useLiveQuery(() => db.datasets?.toArray(), [version]) ?? []);
 
   const updateDatasets = (data: Dataset) => {
-    dispatch(updateDatasets(data));
+    db.datasets.put(data).then(tick);
   };
 
   return {

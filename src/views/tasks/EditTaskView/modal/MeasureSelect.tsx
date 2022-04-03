@@ -5,7 +5,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-import { Measure } from "model";
+import { Measure } from "models";
 import { Sequence2IdMap } from "utilities";
 
 interface MeasureSelectProps {

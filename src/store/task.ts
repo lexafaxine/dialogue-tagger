@@ -1,7 +1,7 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 import { TaskDefinition } from "model";
 import { AssociateBy } from "utilities";
-
-import { createSlice } from "@reduxjs/toolkit";
 
 export interface AddTaskAction {
   type: string;

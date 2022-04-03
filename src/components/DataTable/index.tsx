@@ -62,10 +62,7 @@ export function DataTable<T extends Idable>({
   };
 
   return (
-    <Paper sx={{
-      width: "100%", mb: 2,
-    }}
-    >
+    <Paper sx={{ width: "100%", mb: 2 }}>
       <EnhancedTableToolbar
         title={title}
         numSelected={0}
@@ -74,9 +71,7 @@ export function DataTable<T extends Idable>({
       />
       <TableContainer component={Paper}>
         <Table
-          sx={{
-            minWidth: 750,
-          }}
+          sx={{ minWidth: 750 }}
           aria-labelledby="tableTitle"
           size="small"
         >

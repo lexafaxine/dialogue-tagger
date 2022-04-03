@@ -1,7 +1,5 @@
 import { TaskDefinition } from "model";
-import {
-  useDispatch, useSelector,
-} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "store";
 import { update } from "store/task";
 

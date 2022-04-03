@@ -43,14 +43,26 @@ module.exports = {
     }],
     "object-curly-newline": ["error", 
     {
-      ObjectExpression: "always",
-      ObjectPattern: "always",
+      ObjectExpression: {
+        minProperties: 3,
+        consistent: false,
+        multiline: true,
+      },
+      ObjectPattern: {
+        minProperties: 3,
+        consistent: false,
+        multiline: true,
+      },
       ImportDeclaration: {
         minProperties: 5,
         consistent: false,
         multiline: true,
       },
-      ExportDeclaration: "always",
+      ExportDeclaration: {
+        minProperties: 3,
+        consistent: false,
+        multiline: true,
+      },
     }
   ],
     "react/jsx-filename-extension": ["error", {

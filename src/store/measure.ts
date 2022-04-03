@@ -1,7 +1,7 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 import { Measure } from "model";
 import { Sequence2IdMap } from "utilities";
-
-import { createSlice } from "@reduxjs/toolkit";
 
 export interface AddMeasureAction {
   type: string;

@@ -1,5 +1,6 @@
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import React, { ChangeEvent, FC } from "react";
+
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 interface RadioMeasureScaleProps {
   choices: Array<string>;
@@ -8,7 +9,9 @@ interface RadioMeasureScaleProps {
   onChange: (value: string) => void;
 }
 
-export const RadioMeasureScale: FC<RadioMeasureScaleProps> = ({ initalValue, choices, editable, onChange }) => {
+export const RadioMeasureScale: FC<RadioMeasureScaleProps> = ({
+  initalValue, choices, editable, onChange,
+}) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };

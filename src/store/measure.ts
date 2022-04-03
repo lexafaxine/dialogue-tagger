@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { Measure } from "model";
 import { Sequence2IdMap } from "utilities";
+
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface AddMeasureAction {
   type: string;
@@ -9,9 +10,7 @@ export interface AddMeasureAction {
 
 export const measuresSlice = createSlice({
   name: "measures",
-  initialState: {
-    measures: {} as Sequence2IdMap<Measure>,
-  },
+  initialState: { measures: {} as Sequence2IdMap<Measure> },
   reducers: {
     update: (state, { payload }: AddMeasureAction) => ({
       measures: {

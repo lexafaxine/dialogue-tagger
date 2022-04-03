@@ -1,9 +1,11 @@
+import { useEffect } from "react";
+
 import { Dataset } from "model";
+import {
+  useDispatch, useSelector,
+} from "react-redux";
 import { AppState } from "store";
 import { update } from "store/dataset";
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 const initDataset: Dataset = {
   id: "init",
@@ -131,7 +133,7 @@ const initDataset: Dataset = {
         {
           sender: "helpdesk",
           utterances: [
-            'Hello, traffic reminder will be reminded by default on a weekly, monthly basis and when 10% of the main package traffic remains. If necessary, you can send "ATTX" to 123456789 to set it as a daily reminder.',
+            "Hello, traffic reminder will be reminded by default on a weekly, monthly basis and when 10% of the main package traffic remains. If necessary, you can send \"ATTX\" to 123456789 to set it as a daily reminder.",
           ],
         },
         {

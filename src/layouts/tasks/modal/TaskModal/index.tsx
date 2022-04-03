@@ -1,14 +1,17 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { randomString, Sequence2IdMap } from "utilities";
-import { MeasureSelect } from "./MeasureSelect";
-import { DatasetSelect } from "./DatasetSelect";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
 import { Dataset, Measure, TaskDefinition, TaskProgress } from "model";
+import { randomString, Sequence2IdMap } from "utilities";
+
+import { DatasetSelect } from "./DatasetSelect";
+import { MeasureSelect } from "./MeasureSelect";
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute" as const,
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -30,12 +33,13 @@ export interface TaskModalProps {
   onClose: () => void;
 }
 
-export const TaskModal: FC<TaskModalProps> = ({measures, datasets, initialData, onSave, onClose }) => {
-
+export const TaskModal: FC<TaskModalProps> = ({
+  measures, datasets, initialData, onSave, onClose,
+}) => {
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [measureIds, setMeasureIds] = useState<Array<string>>([]);
-  const [datasetId, setDatasetId] = useState<string>("")
+  const [datasetId, setDatasetId] = useState<string>("");
 
   const [isReset, setIsReset] = useState(false);
 
@@ -50,25 +54,33 @@ export const TaskModal: FC<TaskModalProps> = ({measures, datasets, initialData, 
   };
 
   const onSaveClick = () => {
-    
     // const totalNum = datasets[datasetId].dialogues.length;
 
     // const annotations = isReset === true? [] : (initialData !== undefined)? initialData.annotations : [];
 
     onSave({
-  id: initialData?.id ?? randomString(),
-  title,
-  description,
-  measureIds: [],
-  datasetId: ""
-});
+      id: initialData?.id ?? randomString(),
+      title,
+      description,
+      measureIds: [],
+      datasetId: "",
+    });
     onClose();
   };
 
   return (
-    <Modal open={true} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+    <Modal open aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
-        <Box component="form" sx={{ "& > :not(style)": { m: 1, width: "50ch" } }} noValidate autoComplete="off">
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": {
+              m: 1, width: "50ch",
+            },
+          }}
+          noValidate
+          autoComplete="off"
+        >
           <TextField
             label="Title"
             color="secondary"
@@ -88,13 +100,16 @@ export const TaskModal: FC<TaskModalProps> = ({measures, datasets, initialData, 
           <Typography>
             Select Meausures...
           </Typography>
-          <MeasureSelect measures={measures} measureIds= {measureIds} setMeasureIds={setMeasureIds} setIsReset={setIsReset}></MeasureSelect>
+          <MeasureSelect measures={measures} measureIds={measureIds} setMeasureIds={setMeasureIds} setIsReset={setIsReset} />
           <Typography>
             Select Dataset
           </Typography>
-          <DatasetSelect datasets={datasets} datasetId={datasetId} setDatasetId={setDatasetId} setIsReset={setIsReset}></DatasetSelect>
+          <DatasetSelect datasets={datasets} datasetId={datasetId} setDatasetId={setDatasetId} setIsReset={setIsReset} />
         </Box>
-        <Box sx={{ pl: 1 }}>
+        <Box sx={{
+          pl: 1,
+        }}
+        >
           <Stack direction="row" spacing={1}>
             <Button variant="contained" size="small" onClick={onSaveClick}>
               Save
@@ -107,5 +122,4 @@ export const TaskModal: FC<TaskModalProps> = ({measures, datasets, initialData, 
       </Box>
     </Modal>
   );
-
-}
+};

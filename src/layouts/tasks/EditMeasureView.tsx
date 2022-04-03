@@ -1,9 +1,26 @@
-import Grid from "@mui/material/Grid";
 import React, { FC, useState } from "react";
-import { Button } from "@mui/material";
-import { MeasureTable } from "./MeasureTable";
+
+import { Button, TableCell } from "@mui/material";
+import Grid from "@mui/material/Grid";
+
+import { DataTable, DataTableProps, FieldSchema } from "components/DataTable";
 import { useMeasures } from "hooks";
+import { Measure } from "model";
+
 import { MeasureModal, MeasureModalProps } from "./modal/MeasureModal";
+
+const schema: FieldSchema<Measure>[] = [
+  {
+    name: "Id",
+    render: (m) => <TableCell>{m.id}</TableCell>,
+  },
+  {
+    name: "Title",
+    render: (m) => <TableCell>{m.title}</TableCell>,
+  },
+];
+
+const WrappedDataTable: FC<Omit<DataTableProps<Measure>, "schema">> = (props) => <DataTable {...props} schema={schema} />;
 
 export const EditMeasureView: FC = ({}) => {
   const { measures, updateMeasure } = useMeasures();
@@ -28,9 +45,8 @@ export const EditMeasureView: FC = ({}) => {
 
   return (
     <Grid item xs={12}>
-      <MeasureTable source={measures} onClick={onEditMeasure} />
+      <WrappedDataTable title="Measure" source={measures} onRowClick={onEditMeasure} onAdd={onAddMeasure} onDelete={onAddMeasure} />
       {modalProps && <MeasureModal {...modalProps} onSave={updateMeasure} onClose={onCloseModal} />}
-      <Button onClick={onAddMeasure}>Add Measure</Button>
     </Grid>
   );
 };

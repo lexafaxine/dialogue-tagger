@@ -1,15 +1,18 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import { WholeTagsInput } from "./WholeTagsInput";
-import { RadioMeasureScale } from "./MeasureTypeRadio";
+
 import { Button, Stack, TextField } from "@mui/material";
-import { TurnByTurnTagsInput } from "./TurnByTurnTagsInput.tsx";
-import { randomString } from "utilities";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
 import { Measure, MeasureType, TagGroup } from "model";
+import { randomString } from "utilities";
+
+import { RadioMeasureScale } from "./MeasureTypeRadio";
+import { TurnByTurnTagsInput } from "./TurnByTurnTagsInput.tsx";
+import { WholeTagsInput } from "./WholeTagsInput";
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute" as const,
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -29,7 +32,9 @@ export interface MeasureModalProps {
   onClose: () => void;
 }
 
-export const MeasureModal: FC<MeasureModalProps> = ({ initialData, onClose, onSave }) => {
+export const MeasureModal: FC<MeasureModalProps> = ({
+  initialData, onClose, onSave,
+}) => {
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [type, setType] = useState<MeasureType | undefined>(initialData?.type);
@@ -60,9 +65,18 @@ export const MeasureModal: FC<MeasureModalProps> = ({ initialData, onClose, onSa
   };
 
   return (
-    <Modal open={true} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+    <Modal open aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box sx={style}>
-        <Box component="form" sx={{ "& > :not(style)": { m: 1, width: "50ch" } }} noValidate autoComplete="off">
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": {
+              m: 1, width: "50ch",
+            },
+          }}
+          noValidate
+          autoComplete="off"
+        >
           <TextField
             label="Title"
             color="secondary"
@@ -92,19 +106,20 @@ export const MeasureModal: FC<MeasureModalProps> = ({ initialData, onClose, onSa
           ) : type === "turnbyturn" ? (
             <TurnByTurnTagsInput
               initialValue={tags}
-              onChange={(i, tags) =>
-                setTags((oldTags) => {
-                  const newTags = [...oldTags];
-                  // newTags[i] = tags;
-                  return newTags;
-                })
-              }
+              onChange={(i, tags) => setTags((oldTags) => {
+                const newTags = [...oldTags];
+                // newTags[i] = tags;
+                return newTags;
+              })}
             />
           ) : (
             <></>
           )}
         </Box>
-        <Box sx={{ pl: 1 }}>
+        <Box sx={{
+          pl: 1,
+        }}
+        >
           <Stack direction="row" spacing={1}>
             <Button variant="contained" size="small" onClick={onSaveClick}>
               Save

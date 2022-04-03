@@ -1,6 +1,8 @@
-import Typography from "@mui/material/Typography";
-import { Chip, Stack } from "@mui/material";
 import React from "react";
+
+import { Chip, Stack } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
 import { TagGroup } from "model";
 
 type TagGroupControllerScale = "whole" | "turnbyturn";
@@ -26,15 +28,11 @@ interface TagGroupViewerProps {
   TagGroup: TagGroup;
 }
 
-const TagGroupViewer = (props: TagGroupViewerProps) => {
-  return (
-    <Stack direction="row" spacing={1}>
-      {props.TagGroup.map((tag, i) => {
-        return <Chip label="tag" variant="outlined" key={i}></Chip>;
-      })}
-    </Stack>
-  );
-};
+const TagGroupViewer = (props: TagGroupViewerProps) => (
+  <Stack direction="row" spacing={1}>
+    {props.TagGroup.map((tag, i) => <Chip label="tag" variant="outlined" key={i} />)}
+  </Stack>
+);
 
 export const TagGroupController = (props: DTagGroupControllerProps | TTagGroupControllerProps) => {
   const [DTagGroup, setDTagGroup] = React.useState<Map<string, string>>(new Map());
@@ -54,31 +52,28 @@ export const TagGroupController = (props: DTagGroupControllerProps | TTagGroupCo
           }}></TagGroupAdder> */}
         </>
       );
-    } else {
-      // props.setTagGroup([[...CTagGroup.values()],[...HTagGroup.values()]]);
-      // props.setTagGroup([])
-      return (
-        <>
-          <Typography>Customer TagGroup</Typography>
-          {/* <TagGroupAdder TagGroup={CTagGroup} setTagGroup={setCTagGroup}></TagGroupAdder> */}
-          <Typography>Helpdesk TagGroup</Typography>
-          {/* <TagGroupAdder TagGroup={HTagGroup} setTagGroup={setHTagGroup}></TagGroupAdder> */}
-        </>
-      );
     }
-  } else {
-    // a display component
-    if (props.scale === "whole") {
-      return <TagGroupViewer TagGroup={props.TagGroup}></TagGroupViewer>;
-    } else {
-      return (
-        <>
-          <Typography>Customer TagGroup</Typography>
-          <TagGroupViewer TagGroup={props.TagGroup[0]}></TagGroupViewer>
-          <Typography>Helpdesk TagGroup</Typography>
-          <TagGroupViewer TagGroup={props.TagGroup[1]}></TagGroupViewer>
-        </>
-      );
-    }
+    // props.setTagGroup([[...CTagGroup.values()],[...HTagGroup.values()]]);
+    // props.setTagGroup([])
+    return (
+      <>
+        <Typography>Customer TagGroup</Typography>
+        {/* <TagGroupAdder TagGroup={CTagGroup} setTagGroup={setCTagGroup}></TagGroupAdder> */}
+        <Typography>Helpdesk TagGroup</Typography>
+        {/* <TagGroupAdder TagGroup={HTagGroup} setTagGroup={setHTagGroup}></TagGroupAdder> */}
+      </>
+    );
   }
+  // a display component
+  if (props.scale === "whole") {
+    return <TagGroupViewer TagGroup={props.TagGroup} />;
+  }
+  return (
+    <>
+      <Typography>Customer TagGroup</Typography>
+      <TagGroupViewer TagGroup={props.TagGroup[0]} />
+      <Typography>Helpdesk TagGroup</Typography>
+      <TagGroupViewer TagGroup={props.TagGroup[1]} />
+    </>
+  );
 };

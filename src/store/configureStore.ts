@@ -14,11 +14,17 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const configureStore = () => {
   const store = createStore(
     persistedReducer,
+
+    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // eslint-disable-next-line no-underscore-dangle
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   );
   const persistor = persistStore(store);
-  return { ...store, persistor };
+  return {
+    ...store, persistor,
+  };
   // return createStore(rootReducer, {});
 };
 

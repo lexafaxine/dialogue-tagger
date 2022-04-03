@@ -34,9 +34,7 @@ export const MeasureSelect: FC<MeasureSelectProps> = ({
   return (
     <Stack
       spacing={3}
-      sx={{
-        width: 500,
-      }}
+      sx={{ width: 500 }}
     >
       <Autocomplete
         multiple

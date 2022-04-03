@@ -1,6 +1,11 @@
+/* eslint-disable max-len */
+import { useEffect } from "react";
+
 import { Dataset } from "model";
 
-export const initDataset: Dataset = {
+import { useDatasets } from "./useDatasets";
+
+const testDataset: Dataset = {
   id: "init",
   title: "test dataset",
   description: "xxx",
@@ -89,9 +94,7 @@ export const initDataset: Dataset = {
         },
         {
           sender: "helpdesk",
-          utterances: [
-            "No problem. I'll ask if the prizes for the event have been sent to you.",
-          ],
+          utterances: ["No problem. I'll ask if the prizes for the event have been sent to you."],
         },
       ],
       id: "3610450698186975",
@@ -112,9 +115,7 @@ export const initDataset: Dataset = {
         },
         {
           sender: "customer",
-          utterances: [
-            "I see. Thank you!",
-          ],
+          utterances: ["I see. Thank you!"],
         },
       ],
       id: "3792180248614827",
@@ -174,4 +175,17 @@ export const initDataset: Dataset = {
       id: "4323561671514070",
     },
   ],
+};
+
+export const useDummyDatasets: typeof useDatasets = () => {
+  const { datasets, updateDatasets } = useDatasets();
+
+  useEffect(() => {
+    updateDatasets(testDataset);
+  }, []);
+
+  return {
+    datasets,
+    updateDatasets,
+  };
 };

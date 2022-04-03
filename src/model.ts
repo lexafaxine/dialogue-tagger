@@ -14,26 +14,31 @@ export type TTaskDefinitionId = string;
 
 export type TTaskProgressId = string;
 
+export interface MetaInfo {
+  title: string;
+  description: string;
+}
+
 export interface Tag extends Idable<TTagId> {
   name: string;
 }
 
 export type TagGroup = Array<Tag>;
 
-export type MeasureType = "turnbyturn" | "whole";
+export enum MeasureTaskTypeEnum {
+  Whole = "whole",
+  TurnByTurn = "turnbyturn",
+}
+
+export type MeasureType = `${MeasureTaskTypeEnum}`;
 
 export interface Measure extends MetaInfo, Idable<TMeasureId> {
-  type: "turnbyturn" | "whole";
+  type: MeasureType;
   tags: Array<TagGroup>;
 }
 
 export interface Sender extends Idable<TSenderId> {
   name: string;
-}
-
-export interface MetaInfo {
-  title: string;
-  description: string;
 }
 
 export interface Turn {

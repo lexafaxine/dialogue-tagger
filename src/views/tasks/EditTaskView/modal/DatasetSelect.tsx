@@ -32,9 +32,7 @@ export const DatasetSelect: FC<DatasetSelectProps> = ({
   return (
     <Stack
       spacing={3}
-      sx={{
-        width: 500,
-      }}
+      sx={{ width: 500 }}
     >
       <Autocomplete
         id="tags-outlined"

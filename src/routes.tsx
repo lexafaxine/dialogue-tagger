@@ -47,7 +47,7 @@ import React from "react";
 
 import Icon from "@mui/material/Icon";
 
-import { Dashboard } from "layouts/tasks";
+import { Dashboard } from "views/tasks";
 
 const routes = [
   {
@@ -57,23 +57,6 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/ongoing",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Add Mission",
-    key: "add",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/add",
-    // component: <Notifications></Notifications>,
-    component: <></>,
-  },
-  {
-    type: "collapse",
-    name: "Contact Us",
-    key: "contactUs",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/contactUs",
-    component: <></>,
   },
 ];
 

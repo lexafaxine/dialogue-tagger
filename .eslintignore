@@ -1,8 +1,7 @@
 *.js
 *.jsx
 
-src/layouts/
-!src/layouts/tasks
+src/layouts
 
 src/examples
 src/assets

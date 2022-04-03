@@ -7,6 +7,7 @@ module.exports = {
     "plugin:react/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -19,22 +20,27 @@ module.exports = {
   plugins: [
     "react",
     "@typescript-eslint",
-    // "prettier",
-    "import",
     "simple-import-sort",
+    "import",
+    "autofix",
   ],
   rules: {
     "max-len": ["error", {
       code: 120,
       tabWidth: 2,
+      ignoreComments: true,
     }],
     quotes: ["error", "double", {
       allowTemplateLiterals: true,
     }],
     // "prettier/prettier": "error",
     "default-param-last": "off",
+    "no-console": "off",
+    "no-unused-expressions": "off",
     "no-unused-vars": "off",
-    "import/prefer-default-export": ["off"],
+    "@typescript-eslint/no-unused-vars": "error",
+    "autofix/no-unused-vars": "error",
+    "import/prefer-default-export": "off",
     "import/no-anonymous-default-export": "error",
     "import/extensions": ["error", {
       js: "ignorePackages",
@@ -45,22 +51,18 @@ module.exports = {
     {
       ObjectExpression: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
       ObjectPattern: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
       ImportDeclaration: {
-        minProperties: 5,
-        consistent: false,
+        minProperties: 4,
         multiline: true,
       },
       ExportDeclaration: {
         minProperties: 3,
-        consistent: false,
         multiline: true,
       },
     }
@@ -74,6 +76,7 @@ module.exports = {
         custom: "ignore",
       },
     ],
+    "react/require-default-props": "off",
     "react/jsx-wrap-multilines": "error",
     "react/jsx-max-props-per-line": ["error", {
       maximum: 1,
@@ -85,8 +88,9 @@ module.exports = {
     }],
     "simple-import-sort/imports": ["error", {
       groups: [
-        ["^react$", "^@reduxjs", "^redux"],
+        ["^react$", "^@reduxjs", "^redux", "^@rjsf"],
         ["^@mui"],
+        ["^@"],
         ["^[a-z]"],
         ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
         ["^\\.\\.(?!/?$)", "^\\.\\./?$"],

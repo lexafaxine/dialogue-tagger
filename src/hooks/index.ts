@@ -1,3 +1,3 @@
-export { useMeasures } from "./useMeasureList";
+export { useMeasures } from "./useMeasures";
 export { useDatasets } from "./useDatasets";
 export { useTasks } from "./useTasks";

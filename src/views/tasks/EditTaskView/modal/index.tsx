@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 import { ModalSchemaForm } from "components/ModalSchemaForm";
+import { randomString } from "utilities";
 import { ModalLayout } from "views/tasks/ModalLayout";
 
 import {
@@ -9,7 +10,7 @@ import {
 
 function fromFormSchemaModel(data: IFormData): IModel {
   return {
-    id: data.id,
+    id: data.id ?? randomString(),
     title: data.title,
     description: data.description,
     measureIds: data.measureIds,

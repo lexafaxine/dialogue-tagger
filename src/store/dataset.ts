@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Dataset } from "model";
+import { Dataset } from "models";
 import { Sequence2IdMap } from "utilities";
 
 export interface MergeDatasetAction {

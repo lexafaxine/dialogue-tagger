@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { useEffect } from "react";
 
-import { Measure } from "model";
+import { Measure } from "models";
 
 import { useMeasures } from "./useMeasures";
 
@@ -23,7 +23,9 @@ const testMeasures: Measure[] = [
 ];
 
 export const useDummyMeasures: typeof useMeasures = () => {
-  const { measures, updateMeasure } = useMeasures();
+  const {
+    measures, updateMeasure, ...rest
+  } = useMeasures();
 
   useEffect(() => {
     testMeasures.forEach(updateMeasure);
@@ -32,5 +34,6 @@ export const useDummyMeasures: typeof useMeasures = () => {
   return {
     measures,
     updateMeasure,
+    ...rest,
   };
 };

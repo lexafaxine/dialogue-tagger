@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { TaskDefinition } from "model";
+import { TaskDefinition } from "models";
 import { Sequence2IdMap } from "utilities";
 
 export interface AddTaskAction {

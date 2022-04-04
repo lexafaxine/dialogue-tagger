@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import TableCell from "@mui/material/TableCell";
 
 import { DataTable, DataTableProps, FieldSchema } from "components/DataTable";
-import { Measure } from "model";
+import { Measure } from "models";
 
 const schema: FieldSchema<Measure>[] = [
   {

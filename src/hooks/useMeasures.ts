@@ -1,18 +1,20 @@
-import { Measure } from "model";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "store";
-import { merge } from "store/measure";
+import { useLiveQuery } from "dexie-react-hooks";
+import { Measure } from "models";
+import { db } from "store/indexdb";
+import { asIdMap } from "utilities";
+
+import { useVersion } from "./useVersion";
 
 export const useMeasures = () => {
-  const { measures } = useSelector((state: AppState) => state.measures);
-  const dispatch = useDispatch();
+  const { version, tick } = useVersion();
+  const measures = asIdMap(useLiveQuery(() => db.measures?.toArray(), [version]) ?? []);
 
-  const updateMeasure = (data: Measure) => {
-    dispatch(merge(data));
-  };
+  const updateMeasure = (data: Measure) => { db.measures.put(data).then(tick); };
+  const deleteMeasure = (data: Measure) => { db.measures.delete(data.id).then(tick); };
 
   return {
     measures,
     updateMeasure,
+    deleteMeasure,
   };
 };

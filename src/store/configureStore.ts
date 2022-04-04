@@ -4,12 +4,10 @@ import storage from "redux-persist/lib/storage";
 
 import { rootReducer } from "./index";
 
-const persistConfig = {
-  key: "root",
+const persistedReducer = persistReducer({
+  key: "dialogue-tagger",
   storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+}, rootReducer);
 
 const configureStore = () => {
   const store = createStore(
@@ -22,7 +20,10 @@ const configureStore = () => {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   );
   const persistor = persistStore(store);
-  return { ...store, persistor };
+  return {
+    ...store,
+    persistor,
+  };
 };
 
 export default configureStore;

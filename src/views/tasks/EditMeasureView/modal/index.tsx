@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import { ModalSchemaForm } from "components/ModalSchemaForm";
-import { TagGroup } from "model";
+import { TagGroup } from "models";
 import { randomString } from "utilities";
 import { ModalLayout } from "views/tasks/ModalLayout";
 

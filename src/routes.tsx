@@ -43,11 +43,21 @@ Coded by www.creative-tim.com
 // import SignIn from "layouts/authentication/sign-in";
 // import SignUp from "layouts/authentication/sign-up";
 // @mui icons
-import React from "react";
+import React, { FC } from "react";
 
 import Icon from "@mui/material/Icon";
 
+import { useParams } from "react-router-dom";
 import { Dashboard } from "views/tasks";
+
+const TestComponent: FC = () => {
+  const { id } = useParams();
+  return (
+    <div>
+      {id}
+    </div>
+  );
+};
 
 const routes = [
   {
@@ -57,6 +67,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/ongoing",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "",
+    key: "",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/annotations/:id",
+    component: <TestComponent />,
   },
 ];
 

@@ -1,13 +1,14 @@
 import React, { FC, useCallback, useState } from "react";
 
-import { useDatasets, useMeasures, useTasks } from "hooks";
+import { useMeasures, useTasks } from "hooks";
+import { useDummyDatasets } from "hooks/useDummyDataset";
 
 import { TaskModal, TaskModalProps } from "./modal";
 import { WrappedDataTable } from "./table";
 
 export const EditTaskView: FC = () => {
   const { measures } = useMeasures();
-  const { datasets } = useDatasets();
+  const { datasets } = useDummyDatasets();
   const { tasks, mergeTasks } = useTasks();
 
   const [modalProps, setModalProps] = useState<null | TaskModalProps>(null);

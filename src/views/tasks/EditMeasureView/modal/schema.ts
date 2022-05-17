@@ -62,10 +62,15 @@ export const schema: JSONSchema7 = {
                 MeasureTaskTypeEnum.TurnByTurn,
               ],
             },
-            "tags:turnbyturn": {
+            "tags:customer": {
               type: "array",
               items: { type: "string" },
-              title: "TurnByTurn Task Tags",
+              title: "Customer Task Tags",
+            },
+            "tags:helpdesk": {
+              type: "array",
+              items: { type: "string" },
+              title: "Helpdesk Task Tags",
             },
           },
         },
@@ -76,7 +81,8 @@ export const schema: JSONSchema7 = {
 
 export interface ISchema extends Omit<Measure, "tags"> {
   "tags:whole": TagGroup[];
-  "tags:turnbyturn": TagGroup[];
+  "tags:customer": TagGroup;
+  "tags:helpdesk": TagGroup;
 }
 
 export type IModel = Measure;

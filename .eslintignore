@@ -1,9 +1,0 @@
-*.js
-*.jsx
-*.d.ts
-
-src/layouts
-
-src/examples
-src/assets
-src/components/MD*

@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@fluentui/react';
 
+const FullHeightWrapper: FC<PropsWithChildren> = ({ children }) => <section className="full-height full-width">{children}</section>
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ThemeProvider as={FullHeightWrapper}>
       <App />
     </ThemeProvider>
   </React.StrictMode>

@@ -1,56 +1,75 @@
 import React, { FC } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { ColorClassNames, DefaultButton, FontIcon, Icon, IPersonaSharedProps, mergeStyles, Persona, PersonaSize, SearchBox, Stack } from "@fluentui/react";
-import { Text, ITextProps } from '@fluentui/react/lib/Text';
+import { DefaultPalette, IStackItemStyles, IStackStyles, IStackTokens, Stack } from "@fluentui/react";
+import { NavBasicExample } from './sidenav';
+import { Header } from './header';
 
-const examplePersona: IPersonaSharedProps = {
-  imageInitials: 'AL',
-  text: 'Annie Lindqvist',
-  secondaryText: 'Software Engineer',
-  tertiaryText: 'In a meeting',
-  optionalText: 'Available at 4:00pm',
-};
 
-const iconClass = mergeStyles({
-  fontSize: 50,
-  height: 50,
-  width: 50,
-  margin: '0 25px',
-});
+const MainContent: FC = () => <section style={{"width": "100%"}}>
 
-const Header: FC<{}> = () => {
-  return <div style={{"height": "3rem", "maxHeight": "100%"}} className={`${ColorClassNames.blueBackground}`}>
-    <Stack tokens={{"maxHeight": "100%", padding: "0.5rem"}} horizontal={true} verticalFill={true} verticalAlign={"center"} horizontalAlign={"space-between"}>
-      <div>
-        <Text>ConfBench</Text>
-      </div>
-    <SearchBox placeholder="Search" width="50%" underlined={true} styles={{"root": {"background": ColorClassNames.whiteTranslucent40Background, opacity: "80%", "width": "40%"}}} />
-    <Stack horizontal={true}>
-      <div>
-      <FontIcon aria-label="Compass" iconName="CompassNW" className={iconClass} />
-      </div>
-      
-      <Persona
-        {...examplePersona}
-        text="Annie Lindqvist (Available)"
-        size={PersonaSize.size32}
-        imageAlt="Annie Lindqvist, status is online"
-      />
-    </Stack>
-    </Stack>
-  </div>
+
+</section>
+
+const Body: FC<React.HTMLAttributes<HTMLElement>> = () => {
+  return <Stack className='full-height full-width' horizontal={true}>
+    <NavBasicExample></NavBasicExample>
+    <MainContent/>
+  </Stack>
 }
 
+const Footer: FC<React.HTMLAttributes<HTMLElement>> = () => {
+  return <></>
+}
+
+const stackStyles: IStackStyles = {
+  root: {
+    background: DefaultPalette.themeTertiary,
+    height: "100%",
+  },
+};
+
+const innerStackTokens: IStackTokens = {
+  childrenGap: 0,
+  padding: 0,
+};
+
+const stackItemStyles: IStackItemStyles = {
+  root: {
+    alignItems: 'center',
+    height: '48px',
+    background: DefaultPalette.themePrimary,
+    color: DefaultPalette.white,
+    display: 'flex',
+    justifyContent: 'center',
+    
+  },
+};
+
+const BodyStyles: IStackItemStyles = {
+  root: {
+    alignItems: 'center',
+    height: '100%',
+    background: DefaultPalette.white,
+    color: DefaultPalette.white,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}
 
 function App() {
-  console.log(ColorClassNames.blueBackground)
   return (
-    <div className="App">
-      <Stack horizontal={false} tokens={{"padding": "8px", "childrenGap": "8px"}}>
-        <Header></Header>
-        <DefaultButton onClick={() => alert("hello")}>Test</DefaultButton>
+    <div className="App" style={{"height": '100%'}}>
+      <Stack styles={stackStyles} tokens={innerStackTokens} verticalAlign="space-between">
+        <Stack.Item styles={stackItemStyles}>
+          <Header></Header>
+        </Stack.Item>
+        <Stack.Item styles={BodyStyles}>
+          <Body></Body>
+        </Stack.Item>
+        <Stack.Item styles={stackItemStyles}>
+          <Footer></Footer>
+        </Stack.Item>
       </Stack>
     </div>
   );

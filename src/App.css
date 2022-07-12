@@ -1,5 +1,9 @@
+#root {
+  height: 100%;
+}
+
 .App {
-  text-align: center;
+  
 }
 
 .App-logo {
@@ -35,4 +39,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.style-fix {
+  height: 100%;
+}
+
+.style-fix .ms-FocusZone {
+  height: 100%;
 }

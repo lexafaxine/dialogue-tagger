@@ -1,37 +1,21 @@
-import React, { FC } from 'react';
+import React from 'react';
+import { Stack, Text, Link, FontWeights, IStackTokens, IStackStyles, ITextStyles, DefaultPalette, IStackItemStyles } from '@fluentui/react';
+import logo from './logo.svg';
 import './App.css';
-
-import { DefaultPalette, IStackItemStyles, IStackStyles, IStackTokens, Stack } from "@fluentui/react";
-import { NavBasicExample } from './sidenav';
+import { Footer } from './footer';
 import { Header } from './header';
+import { Body } from './body';
 
 
-const MainContent: FC = () => <section style={{"width": "100%"}}>
-
-
-</section>
-
-const Body: FC<React.HTMLAttributes<HTMLElement>> = () => {
-  return <Stack className='full-height full-width' horizontal={true}>
-    <NavBasicExample></NavBasicExample>
-    <MainContent/>
-  </Stack>
-}
-
-const Footer: FC<React.HTMLAttributes<HTMLElement>> = () => {
-  return <></>
-}
-
-const stackStyles: IStackStyles = {
+const stackTokens: IStackTokens = { childrenGap: 0, padding: 0 };
+const stackStyles: Partial<IStackStyles> = {
   root: {
-    background: DefaultPalette.themeTertiary,
-    height: "100%",
+    width: '100%',
+    height: '100%',
+    margin: '0 auto',
+    textAlign: 'center',
+    color: '#605e5c',
   },
-};
-
-const innerStackTokens: IStackTokens = {
-  childrenGap: 0,
-  padding: 0,
 };
 
 const stackItemStyles: IStackItemStyles = {
@@ -57,22 +41,19 @@ const BodyStyles: IStackItemStyles = {
   },
 }
 
-function App() {
-  return (
-    <div className="App" style={{"height": '100%'}}>
-      <Stack styles={stackStyles} tokens={innerStackTokens} verticalAlign="space-between">
-        <Stack.Item styles={stackItemStyles}>
-          <Header></Header>
-        </Stack.Item>
-        <Stack.Item styles={BodyStyles}>
-          <Body></Body>
-        </Stack.Item>
-        <Stack.Item styles={stackItemStyles}>
-          <Footer></Footer>
-        </Stack.Item>
-      </Stack>
-    </div>
-  );
-}
 
-export default App;
+export const App: React.FunctionComponent = () => {
+  return (
+    <Stack verticalAlign="space-between" verticalFill styles={stackStyles} tokens={stackTokens}>
+      <Stack.Item styles={stackItemStyles}>
+        <Header></Header>
+      </Stack.Item>
+      <Stack.Item styles={BodyStyles}>
+        <Body></Body>
+      </Stack.Item>
+      <Stack.Item styles={stackItemStyles}>
+        <Header></Header>
+      </Stack.Item>
+    </Stack>
+  );
+};

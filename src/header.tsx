@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import { ColorClassNames, DefaultButton, DefaultPalette, FontIcon, Icon, IPersonaSharedProps, IStackItemStyles, IStackStyles, IStackTokens, mergeStyles, Persona, PersonaSize, SearchBox, Stack } from "@fluentui/react";
-import { Text, ITextProps } from '@fluentui/react/lib/Text';
-import { NavBasicExample } from './sidenav';
+import { ColorClassNames, FontIcon, IPersonaSharedProps, mergeStyles, Persona, PersonaSize, SearchBox, Stack } from "@fluentui/react";
+import { Text } from '@fluentui/react/lib/Text';
 
 const examplePersona: IPersonaSharedProps = {
   imageInitials: 'AL',

@@ -1,21 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './App';
-import { mergeStyles } from '@fluentui/react';
-import reportWebVitals from './reportWebVitals';
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import App from './App';
+import theme from './theme';
 
-// Inject some global styles
-mergeStyles({
-  ':global(body,html,#root)': {
-    margin: 0,
-    padding: 0,
-    height: '100vh',
-  },
-});
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement!);
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(
+  <ThemeProvider theme={theme}>
+    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
+);
